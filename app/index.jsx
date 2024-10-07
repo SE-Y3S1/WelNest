@@ -14,7 +14,7 @@ export default function App() {
       <View className="flex-1 items-center justify-center bg-primary">
             <Text className="text-3xl text-black font-bold text-center">
               Wellness{"\n"}
-              Pioneers{" "}
+              Pioneers {" "}
             </Text>
             <Link href="/home" style={{color:'blue'}}>Home</Link> 
           </View>  
