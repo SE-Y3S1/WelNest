@@ -7,6 +7,7 @@ const Home = () => {
     <View>
       <Text>Home</Text>
       <Link href="/meal_planner" style={{color:'blue'}}>Meal Planner</Link> 
+      <Link href="/recipe" style={{color:'blue'}}>RecipeScreen</Link> 
     </View>
       
   )
