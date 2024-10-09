@@ -17,6 +17,7 @@ export default function App() {
               Pioneers{" "}
             </Text>
             <Link href="/home" style={{color:'blue'}}>Home</Link> 
+            <Link href="/sign-in" style={{color:'blue'}}>Signin</Link> 
           </View>  
       </ScrollView>
     </SafeAreaView>
