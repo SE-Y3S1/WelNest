@@ -23,7 +23,7 @@ const RecipeScreen = () => {
   return (
     <ScrollView className="bg-white flex-1">
       {/* Header */}
-      <View className="bg-[#F59D00]  p-4 shadow-md rounded-xl">
+      <View className="bg-[#F59D00] p-4 shadow-md rounded-xl">
         <Text className="text-2xl font-bold text-center text-black">Wellness Pioneers</Text>
       </View>
 
@@ -43,9 +43,9 @@ const RecipeScreen = () => {
           <TouchableOpacity
             key={index}
             onPress={() => handleSelectRecipe(recipe.name)} // Set recipe as selected on press
-            className={`flex-row items-center justify-between p-3 mb-3 rounded-lg ${
-              selectedRecipe === recipe.name ? 'bg-orange-200 border border-yellow-500' : recipe.color
-            }`}
+            className={`flex-row items-center justify-between p-3 mb-3 rounded-lg border ${
+              selectedRecipe === recipe.name ? 'bg-orange-200 border-yellow-500' : 'border-gray-300'
+            }`} // Added border here
           >
             <View>
               <Text className={`text-lg font-bold ${recipe.textColor}`}>

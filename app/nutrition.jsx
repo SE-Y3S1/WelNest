@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, ScrollView, TouchableOpacity, Image, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-const NutritionTips = ({ navigation }) => {
+const NutritionTips = () => {
+  const navigation = useNavigation(); // Use useNavigation hook
   const [search, setSearch] = useState('');
   const [selectedTip, setSelectedTip] = useState(null); // State to hold the selected tip
 
@@ -48,11 +50,12 @@ const NutritionTips = ({ navigation }) => {
       {/* Header with Half Oval */}
       <View className="bg-[#FFDFA8] rounded-b-[80px] px-4 py-5 h-1/5">
         <View className="flex-row items-center justify-between">
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          {/* Back Icon */}
+          <TouchableOpacity>
             <Image source={require('../assets/back-icon.png')} className="w-8 h-8" />
           </TouchableOpacity>
           <Text className="text-3xl font-bold">Nutrition Tips</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('nutrition_add')}>
             <Image source={require('../assets/add-icon.png')} className="w-9 h-9" />
           </TouchableOpacity>
         </View>
@@ -62,7 +65,7 @@ const NutritionTips = ({ navigation }) => {
           <View className="w-80 flex-row self-center bg-white shadow-md rounded-lg px-4 py-3 items-center">
             <Image source={require('../assets/search.png')} className="w-5 h-5 self-center mr-2" />
             <TextInput
-              placeholder="Search Tips..."
+              placeholder="   Search Tips...."
               value={search}
               onChangeText={(text) => setSearch(text)}
               className="flex-1 text-gray-700"
@@ -76,24 +79,22 @@ const NutritionTips = ({ navigation }) => {
         {nutritionTips
           .filter(tip => tip.title.toLowerCase().includes(search.toLowerCase())) // Filter tips based on search input
           .map((tip, index) => (
-            <View key={index} className={`flex-row justify-between items-center mb-4 rounded-xl p-4 ${selectedTip === tip ? 'bg-orange-200 border border-yellow-500' : 'bg-white shadow-md'}`}>
+            <View key={index} className={`mb-4 rounded-xl p-4 border ${selectedTip === tip ? 'border-yellow-500' : 'border-gray-300'} ${selectedTip === tip ? 'bg-orange-200' : 'bg-white shadow-md'}`}>
+
+              {/* Add Button positioned in the top right corner */}
+              <TouchableOpacity className="absolute top-3 right-3 w-6 h-6 bg-yellow-500 rounded-full items-center justify-center">
+                <Text className="text-white font-bold self-center">+</Text>
+              </TouchableOpacity>
               
               {/* Text Container */}
-              <View className="flex-1">
-                <TouchableOpacity onPress={() => setSelectedTip(tip)}>
-                  <Text className={`text-lg font-bold ${selectedTip === tip ? 'text-white' : 'text-gray-900'}`}>
-                    {tip.title}
-                  </Text>
-                  <Text className={`text-gray-600 ${selectedTip === tip ? 'text-white' : 'text-gray-600'}`}>
-                    {tip.description}
-                    <Text className="text-[#FEA405]"> Read More...</Text>
-                  </Text>
-                </TouchableOpacity>
-              </View>
-
-              {/* Add Button */}
-              <TouchableOpacity className="w-6 h-6 bg-yellow-500 rounded-full items-center justify-center ml-3">
-                <Text className="text-white font-bold self-center">+</Text>
+              <TouchableOpacity onPress={() => setSelectedTip(tip)}>
+                <Text className={`text-lg font-bold ${selectedTip === tip ? 'text-white' : 'text-gray-900'}`}>
+                  {tip.title}
+                </Text>
+                <Text className={`text-gray-600 ${selectedTip === tip ? 'text-white' : 'text-gray-600'}`}>
+                  {tip.description}
+                  <Text className="text-[#FEA405]"> Read More...</Text>
+                </Text>
               </TouchableOpacity>
             </View>
           ))}
