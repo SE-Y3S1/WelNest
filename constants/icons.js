@@ -13,6 +13,8 @@ import eye from "../assets/icons/eye.png";
 import play from "../assets/icons/play.png";
 import calendar from "../assets/icons/calendar.png";
 import bell from "../assets/icons/bell.png";
+import time from "../assets/icons/time.png";
+import clock from "../assets/icons/clock.png";
 
 export default {
   play,
@@ -30,4 +32,6 @@ export default {
   eye,
   calendar,
   bell,
+  time,
+  clock,
 };

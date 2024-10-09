@@ -1,5 +1,5 @@
-import { View, Text, Image } from 'react-native'
-import { Tabs, Redirect } from 'expo-router'
+import { View, Image } from 'react-native'
+import { Tabs } from 'expo-router'
 
 import { icons } from '../../constants';
 
@@ -89,6 +89,14 @@ const TabsLayout = () => {
                     }}
                 />
 
+                <Tabs.Screen
+                    name="symptoms"
+                    options={{
+                        title: 'Symptoms',
+                        headerShown: false,
+                        tabBarButton: () => null,
+                    }}
+                />
             </Tabs>
         </>
     )

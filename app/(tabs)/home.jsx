@@ -18,6 +18,7 @@ const Home = () => {
            </Text>
            <Link href="/home" style={{color:'blue'}}>Home</Link> 
            <Link href="/sign-in" style={{color:'blue'}}>Signin</Link> 
+           <Link href="/symptoms" style={{color:'blue'}}>Symptoms</Link> 
          </View>  
      </ScrollView>
    </SafeAreaView>
