@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, ScrollView, TouchableOpacity, Image, Alert } from 'react-native';
+import { View, Text, TextInput, ScrollView, TouchableOpacity, Image, Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const NutritionTips = () => {
@@ -46,12 +46,16 @@ const NutritionTips = () => {
   };
 
   return (
-    <View className="flex-1 bg-white">
+    <KeyboardAvoidingView
+      className="flex-1 bg-white"
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={80} // Adjust this offset as needed
+    >
       {/* Header with Half Oval */}
       <View className="bg-[#FFDFA8] rounded-b-[80px] px-4 py-5 h-1/5">
         <View className="flex-row items-center justify-between">
           {/* Back Icon */}
-          <TouchableOpacity>
+          <TouchableOpacity  onPress={() => navigation.navigate('recipe_detail')}>
             <Image source={require('../assets/back-icon.png')} className="w-8 h-8" />
           </TouchableOpacity>
           <Text className="text-3xl font-bold">Nutrition Tips</Text>
@@ -62,13 +66,14 @@ const NutritionTips = () => {
 
         {/* Search Bar */}
         <View className="mt-3">
-          <View className="w-80 flex-row self-center bg-white shadow-md rounded-lg px-4 py-3 items-center">
+          <View className="w-full max-w-md flex-row self-center bg-white shadow-md rounded-lg px-4 py-3 items-center">
             <Image source={require('../assets/search.png')} className="w-5 h-5 self-center mr-2" />
             <TextInput
-              placeholder="   Search Tips...."
+              placeholder="Search Tips...."
               value={search}
               onChangeText={(text) => setSearch(text)}
               className="flex-1 text-gray-700"
+              onFocus={() => setSelectedTip(null)} // Clear selection when searching
             />
           </View>
         </View>
@@ -80,7 +85,6 @@ const NutritionTips = () => {
           .filter(tip => tip.title.toLowerCase().includes(search.toLowerCase())) // Filter tips based on search input
           .map((tip, index) => (
             <View key={index} className={`mb-4 rounded-xl p-4 border ${selectedTip === tip ? 'border-yellow-500' : 'border-gray-300'} ${selectedTip === tip ? 'bg-orange-200' : 'bg-white shadow-md'}`}>
-
               {/* Add Button positioned in the top right corner */}
               <TouchableOpacity className="absolute top-3 right-3 w-6 h-6 bg-yellow-500 rounded-full items-center justify-center">
                 <Text className="text-white font-bold self-center">+</Text>
@@ -104,7 +108,7 @@ const NutritionTips = () => {
       <TouchableOpacity className="bg-[#F59D00] p-4 rounded-2xl mx-10 my-4" onPress={handleSaveTip}>
         <Text className="text-white text-center font-bold text-xl">Save Tip</Text>
       </TouchableOpacity>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
