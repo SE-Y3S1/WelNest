@@ -1,18 +1,24 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Switch, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, ScrollView, Switch, TouchableOpacity, Alert } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from '@react-native-picker/picker';
+import CustomButton from '../components/CustomButton';
+import FormField from '../components/FormField';
+import { addAlarm } from './firebase/alarmService'; // Import your Firebase service for alarms
+import { useNavigation } from '@react-navigation/native';
 
 const SetAlarm = () => {
   const [alarmName, setAlarmName] = useState('');
   const [alarmDate, setAlarmDate] = useState(new Date());
   const [alarmTime, setAlarmTime] = useState(new Date());
   const [alarmEnabled, setAlarmEnabled] = useState(true);
-  const [note, setNote] = useState('');
   const [vibrate, setVibrate] = useState(false);
   const [repeat, setRepeat] = useState('none');
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
+  const [isSubmitting, setSubmitting] = useState(false);
+
+  const navigation = useNavigation(); // Initialize navigation
 
   const onChangeDate = (event, selectedDate) => {
     setShowDatePicker(false);
@@ -24,59 +30,91 @@ const SetAlarm = () => {
     if (selectedTime) setAlarmTime(selectedTime);
   };
 
+  // Function to handle alarm submission
+  const logAlarm = async () => {
+    setSubmitting(true);
+    try {
+      const alarmData = {
+        name: alarmName,
+        date: alarmDate instanceof Date ? alarmDate : new Date(),
+        time: alarmTime instanceof Date ? alarmTime : new Date(),
+        enabled: alarmEnabled,
+        vibrate,
+        repeat,
+      };
+
+      console.log("Submitting alarm data:", alarmData);
+
+      // Call your Firebase service to add the alarm
+      await addAlarm(alarmData);
+
+      // Clear form after successful submission
+      setAlarmName('');
+      setAlarmDate(new Date());
+      setAlarmTime(new Date());
+      setAlarmEnabled(true);
+      setVibrate(false);
+      setRepeat('none');
+
+      Alert.alert('Success', 'Alarm set successfully!');
+
+      // Navigate to the Alarms screen (or any screen you prefer)
+      navigation.navigate('alarms'); 
+    } catch (error) {
+      Alert.alert('Error', error.message);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 20, backgroundColor: '#fff' }}>
       <Text style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 20 }}>Set Alarm</Text>
 
       {/* Alarm Name Input */}
-      <View style={{ marginBottom: 20 }}>
-        <Text style={{ fontSize: 16, marginBottom: 5 }}>Alarm Name</Text>
-        <TextInput
-          style={{
-            borderWidth: 1,
-            borderColor: '#ddd',
-            borderRadius: 5,
-            padding: 10,
-          }}
-          placeholder="Enter alarm name..."
-          value={alarmName}
-          onChangeText={(text) => setAlarmName(text)}
-        />
-      </View>
+      <FormField
+        title="Alarm Name"
+        value={alarmName}
+        placeholder="Enter alarm name..."
+        handleChangeText={setAlarmName}
+        otherStyles="my-3"
+      />
 
       {/* Date Picker */}
-      <View style={{ marginBottom: 20 }}>
-        <Text style={{ fontSize: 16, marginBottom: 5 }}>Date</Text>
-        <TouchableOpacity onPress={() => setShowDatePicker(true)} style={{
-          padding: 10,
-          borderWidth: 1,
-          borderRadius: 5,
-          borderColor: '#ddd',
-          justifyContent: 'center',
-        }}>
-          <Text>{alarmDate.toLocaleDateString()}</Text>
-        </TouchableOpacity>
-        {showDatePicker && (
-          <DateTimePicker value={alarmDate} mode="date" display="default" onChange={onChangeDate} />
-        )}
-      </View>
+      <FormField
+        title="Date"
+        value={alarmDate.toLocaleDateString()}
+        placeholder="Select a date"
+        handleChangeText={() => setShowDatePicker(true)}
+        otherStyles="my-3"
+        isTouchable
+      />
+      {showDatePicker && (
+        <DateTimePicker
+          value={alarmDate}
+          mode="date"
+          display="default"
+          onChange={onChangeDate}
+        />
+      )}
 
       {/* Time Picker */}
-      <View style={{ marginBottom: 20 }}>
-        <Text style={{ fontSize: 16, marginBottom: 5 }}>Alarm Time</Text>
-        <TouchableOpacity onPress={() => setShowTimePicker(true)} style={{
-          padding: 10,
-          borderWidth: 1,
-          borderRadius: 5,
-          borderColor: '#ddd',
-          justifyContent: 'center',
-        }}>
-          <Text>{alarmTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</Text>
-        </TouchableOpacity>
-        {showTimePicker && (
-          <DateTimePicker value={alarmTime} mode="time" display="default" onChange={onChangeTime} />
-        )}
-      </View>
+      <FormField
+        title="Alarm Time"
+        value={alarmTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+        placeholder="Select a time"
+        handleChangeText={() => setShowTimePicker(true)}
+        otherStyles="my-3"
+        isTouchable
+      />
+      {showTimePicker && (
+        <DateTimePicker
+          value={alarmTime}
+          mode="time"
+          display="default"
+          onChange={onChangeTime}
+        />
+      )}
 
       {/* Repeat Picker */}
       <View style={{ marginBottom: 20 }}>
@@ -105,17 +143,20 @@ const SetAlarm = () => {
         <Switch value={vibrate} onValueChange={(value) => setVibrate(value)} />
       </View>
 
-    
-
       {/* Save Button */}
-      <TouchableOpacity style={{
-        backgroundColor: '#FFA500',
-        padding: 15,
-        borderRadius: 5,
-        alignItems: 'center',
-      }}>
-        <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 16 }}>Save</Text>
-      </TouchableOpacity>
+      <CustomButton
+        title="Add Alarm"
+        handlePress={logAlarm}
+        containerStyles="mt-5"
+        isLoading={isSubmitting} // Show loading state
+      />
+
+      {/* Navigate to Alarms Button */}
+      <CustomButton
+        title="Go to Alarms"
+        handlePress={() => navigation.navigate('alarms')}
+        containerStyles="mt-5"
+      />
     </ScrollView>
   );
 };

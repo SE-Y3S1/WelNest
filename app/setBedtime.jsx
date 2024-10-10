@@ -2,7 +2,6 @@ import { View, Text, ScrollView, Switch, TouchableOpacity, Alert } from 'react-n
 import React, { useState } from 'react';
 import FormField from '../components/FormField';
 import CustomButton from '../components/CustomButton';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useRoute, useNavigation } from '@react-navigation/native'; // Import useNavigation
 import { addBedtime } from './firebase/sTrackService';  // Firebase service for Bedtime
@@ -66,8 +65,8 @@ const SetBedtime = () => {
     }
 
     return (
-        <SafeAreaView>
-            <ScrollView>
+       
+            <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 10, backgroundColor: '#fff' }}>
                 <View className="w-full h-full justify-center px-4 my-6">
                     <Text className="text-2xl text-black font-semibold -mt-5">Set Bedtime</Text>
 
@@ -147,7 +146,7 @@ const SetBedtime = () => {
                     />
                 </View>
             </ScrollView>
-        </SafeAreaView>
+        
     );
 };
 
