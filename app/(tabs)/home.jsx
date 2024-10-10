@@ -1,15 +1,25 @@
-import { View, Text } from 'react-native';
-import React from 'react';
-import { Link } from 'expo-router';
+import { View, Text } from 'react-native'
+import React from 'react'
 
 const Home = () => {
   return (
-    <View className="flex-1 justify-center items-center p-4">
-      <Text className="mt-1 text-2xl font-bold">Home</Text>
-      <Link href="/meal_planner" className="text-blue-500 text-lg mt-2">Meal Planner</Link>
-      <Link href="/recipe" className="text-blue-500 text-lg mt-2">Recipe Screen</Link>
-    </View>
-  );
+    <SafeAreaView className="bg-primary h-full">
+    <ScrollView
+       contentContainerStyle={{
+         height: "100%",
+       }}
+     >
+     <View className="flex-1 items-center justify-center bg-primary">
+           <Text className="text-3xl text-black font-bold text-center">
+             Wellness{"\n"}
+             Pioneers{" "}
+           </Text>
+           <Link href="/home" style={{color:'blue'}}>Home</Link> 
+           <Link href="/sign-in" style={{color:'blue'}}>Signin</Link> 
+         </View>  
+     </ScrollView>
+   </SafeAreaView>
+  )
 }
 
 export default Home;
