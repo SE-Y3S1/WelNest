@@ -1,5 +1,7 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { StatusBar } from 'expo-status-bar';
+import { Text, View, ScrollView } from 'react-native';
+import { Link } from 'expo-router';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Home = () => {
   return (
@@ -16,10 +18,12 @@ const Home = () => {
            </Text>
            <Link href="/home" style={{color:'blue'}}>Home</Link> 
            <Link href="/sign-in" style={{color:'blue'}}>Signin</Link> 
+           <Link href="/meal_planner" style={{color:'blue'}}>Meal planner</Link> 
+           <Link href="/recipe" style={{color:'blue'}}>Recipe</Link> 
          </View>  
      </ScrollView>
    </SafeAreaView>
   )
 }
 
-export default Home;
+export default Home
