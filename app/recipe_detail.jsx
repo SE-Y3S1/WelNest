@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const DetailRecipeScreen = () => {
@@ -26,14 +26,14 @@ const DetailRecipeScreen = () => {
 
   return (
     <View className="flex-1 bg-white">
-      {/* Recipe Image */}
+      {/* Static Recipe Image */}
       <Image
         source={require('../assets/chicken-alfredo.png')} // Replace with your image path
-        className="w-5/6 h-[30%] mb-4 rounded-3xl self-center"
+        className="w-5/6 h-[32%] mb-4 rounded-3xl self-center mt-14"
       />
 
-      {/* Recipe Details */}
-      <View className="bg-customPink p-5 rounded-t-3xl mt-0.1 flex-1">
+      {/* Scrollable Recipe Details */}
+      <ScrollView className="bg-customPink p-5 rounded-t-3xl flex-1 -mt-0.5">
         {/* Recipe Name */}
         <Text className="text-2xl font-bold text-customDarkBlue mb-2">{recipeName}</Text>
 
@@ -72,7 +72,7 @@ const DetailRecipeScreen = () => {
           </Text>
         </View>
 
-        <View className="w-5/6 h-0.5 bg-black my-2 self-center" />
+        <View className="w-5/6 h-0.5 bg-black my-2 self-center mt-1" />
 
         {/* Ingredients */}
         <View>
@@ -87,12 +87,12 @@ const DetailRecipeScreen = () => {
 
         {/* Nutrient Tips Button */}
         <TouchableOpacity
-          className="bg-[#F59D00] rounded-xl py-3 px-6 mt-3 self-center w-1/2"
+          className="bg-[#F59D00] rounded-xl py-3 px-6 mt-2 mb-1 self-center w-1/2"
           onPress={() => navigation.navigate('nutrition')} // Navigate to the nutrition screen
         >
           <Text className="text-white text-center text-xl font-bold">Nutrient Tips</Text>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
     </View>
   );
 };

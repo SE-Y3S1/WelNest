@@ -52,22 +52,22 @@ const NutritionTips = () => {
       keyboardVerticalOffset={80} // Adjust this offset as needed
     >
       {/* Header with Half Oval */}
-      <View className="bg-[#FFDFA8] rounded-b-[80px] px-4 py-5 h-1/5">
+      <View className="bg-[#FFDFA8] rounded-b-[50px] px-4 py-5 h-[25%] ">
         <View className="flex-row items-center justify-between">
           {/* Back Icon */}
           <TouchableOpacity  onPress={() => navigation.navigate('recipe_detail')}>
-            <Image source={require('../assets/back-icon.png')} className="w-8 h-8" />
+            <Image source={require('../../assets/back-icon.png')} className="w-8 h-8 mt-10" />
           </TouchableOpacity>
-          <Text className="text-3xl font-bold">Nutrition Tips</Text>
+          <Text className="text-3xl font-bold mt-12">Nutrition Tips</Text>
           <TouchableOpacity onPress={() => navigation.navigate('nutrition_add')}>
-            <Image source={require('../assets/add-icon.png')} className="w-9 h-9" />
+            <Image source={require('../../assets/add-icon.png')} className="w-9 h-9 mt-10" />
           </TouchableOpacity>
         </View>
 
         {/* Search Bar */}
         <View className="mt-3">
           <View className="w-full max-w-md flex-row self-center bg-white shadow-md rounded-lg px-4 py-3 items-center">
-            <Image source={require('../assets/search.png')} className="w-5 h-5 self-center mr-2" />
+            <Image source={require('../../assets/search.png')} className="w-5 h-5 self-center mr-2" />
             <TextInput
               placeholder="Search Tips...."
               value={search}

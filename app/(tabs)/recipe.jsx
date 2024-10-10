@@ -13,6 +13,8 @@ const RecipeScreen = () => {
     { name: 'Vegetable Omelet Sandwich', kcal: '300 kcal', color: 'bg-white', textColor: 'text-gray-800' },
     { name: 'Chicken Alfredo Pasta', kcal: '229 kcal', color: 'bg-white', textColor: 'text-gray-900' },
     { name: 'Thai Peanut Noodles', kcal: '219 kcal', color: 'bg-white', textColor: 'text-gray-800' },
+    { name: 'Quinoa Salad with Avocado', kcal: '250 kcal', color: 'bg-white', textColor: 'text-gray-800' },
+
   ];
 
   // Function to handle recipe selection
@@ -21,22 +23,23 @@ const RecipeScreen = () => {
   };
 
   return (
-    <ScrollView className="bg-white flex-1">
+    <View className="flex-1 bg-white">
       {/* Header */}
-      <View className="bg-[#F59D00] p-4 shadow-md rounded-xl">
+      <View className="bg-[#F59D00] p-4 shadow-md rounded-xl mt-14">
         <Text className="text-2xl font-bold text-center text-black">Wellness Pioneers</Text>
       </View>
 
-      {/* Recipe Suggestions */}
-      <View className="px-3 py-6">
-        <Text className="text-xl font-bold text-left mb-5">Recipe Suggestions</Text>
+      {/* Scrollable Recipe Suggestions */}
+      
+        <Text className="text-xl font-bold text-left mb-3 ml-5 mt-5">Recipe Suggestions</Text>
 
         {/* Image */}
         <Image
-          source={require('../assets/recipes.png')} // Replace with your image
-          className="w-full h-40 rounded-xl mb-5"
+          source={require('../../assets/recipes.png')} // Replace with your image
+          className="w-[90%] h-40 rounded-xl mb-5 self-center"
           resizeMode="cover"
         />
+           <ScrollView className="flex-1 px-3 py-3">
 
         {/* Recipe List */}
         {recipes.map((recipe, index) => (
@@ -62,10 +65,12 @@ const RecipeScreen = () => {
             </TouchableOpacity>
           </TouchableOpacity>
         ))}
+      </ScrollView>
 
-        {/* View Recipe Button */}
+      {/* Fixed View Recipe Button */}
+      <View className="p-4 bg-white">
         <TouchableOpacity
-          className="bg-[#F59D00] p-4 rounded-full mt-6"
+          className="bg-[#F59D00] p-4 rounded-full"
           onPress={() => {
             if (selectedRecipe) {
               navigation.navigate('recipe_detail', { recipeName: selectedRecipe }); // Navigate to DetailRecipeScreen
@@ -77,7 +82,7 @@ const RecipeScreen = () => {
           <Text className="text-white text-center font-bold text-lg">View Recipe</Text>
         </TouchableOpacity>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 

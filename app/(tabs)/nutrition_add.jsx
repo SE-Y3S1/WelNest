@@ -22,19 +22,19 @@ const AddNutritionTip = () => {
     <KeyboardAvoidingView className="flex-1 bg-white" behavior="padding">
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View className="flex-1 bg-white">
-          <View className="bg-[#FFDFA8] px-4 py-5 h-[20%] rounded-b-3xl">
+          <View className="bg-[#FFDFA8] px-4 py-5 h-[25%] rounded-b-3xl">
             <View className="flex-row items-center">
-              <TouchableOpacity onPress={() => navigation.goBack()}>
-                <Image source={require('../assets/back-icon.png')} className="w-6 h-6 mt-2" />
+              <TouchableOpacity onPress={() =>navigation.navigate('nutrition')}>
+                <Image source={require('../../assets/back-icon.png')} className="w-8 h-8 mt-12" />
               </TouchableOpacity>
-              <Text className="text-2xl mt-1 font-bold flex-1 text-center">Add Nutrition Tips</Text>
+              <Text className="text-2xl mt-1 font-bold flex-1 text-center mt-12">Add Nutrition Tips</Text>
             </View>
-            <Text className="text-center mt-6 text-lg font-semibold">
+            <Text className="text-center mt-4 text-lg font-semibold">
               Share your knowledge for healthier living and well-being!
             </Text>
           </View>
 
-          <View className="mt-8 px-5">
+          <View className="mt-8 px-5 mt-5">
             <Text className="text-lg font-semibold">Title</Text>
             <TextInput
               value={title}

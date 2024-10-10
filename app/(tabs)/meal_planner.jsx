@@ -23,15 +23,15 @@ const MealPlanner = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={{ paddingBottom: 50 }}>
-      <View className="bg-[#F59D00]  p-4 shadow-md rounded-xl">
+    <View className="flex-1">
+      <View className="bg-[#F59D00] p-4 shadow-md rounded-xl mt-14">
         <Text className="text-2xl font-bold text-center text-black">Wellness Pioneers</Text>
       </View>
 
-      <View className="p-5 flex-1 bg-white">
-        <Text className="text-2xl font-bold text-left my-1">Daily Meal Planner</Text>
+      <ScrollView contentContainerStyle={{ paddingBottom: 100 }} className="p-5 bg-white flex-1">
+        <Text className="text-2xl font-bold my-1">Daily Meal Planner</Text>
         <Image
-          source={require('../assets/meal_planning.png')} // Correct the path to your image
+          source={require('../../assets/meal_planning.png')} // Correct the path to your image
           className="w-full h-52 mb-4 rounded-xl"
         />
 
@@ -107,17 +107,17 @@ const MealPlanner = () => {
             keyboardType="numeric"
           />
         </View>
-        
+      </ScrollView>
 
+      <View className="absolute bottom-0 left-0 right-0 p-4 bg-white">
         <TouchableOpacity
           onPress={() => console.log("Meal added")}
-          className="bg-[#F59D00]  rounded-xl py-3 px-4 mt-4 self-center w-1/2"
+          className="bg-[#F59D00] rounded-xl py-3 px-4 self-center w-1/2"
         >
           <Text className="text-white text-center text-xl font-bold">Add Meal</Text>
         </TouchableOpacity>
       </View>
-
-    </ScrollView>
+    </View>
   );
 };
 
