@@ -19,7 +19,8 @@ export default function App() {
       
             <Link href="/home" style={{color:'blue'}}>Home</Link> 
             <Link href="/sign-in" style={{color:'blue'}}>Signin</Link>
-            <Link href="/symptoms" style={{color:'blue'}}>Sympotom</Link>  
+            <Link href="/symptomForm" style={{color:'blue'}}>Sympotom</Link>  
+            <Link href="/symptomsList" style={{color:'blue'}}>Sympotoms List</Link>  
           </View>  
       </ScrollView>
     </SafeAreaView>

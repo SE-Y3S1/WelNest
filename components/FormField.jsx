@@ -55,10 +55,9 @@ const FormField = ({ title, value, placeholder, handleChangeText, otherStyles, .
                             }}
                         >
                             <Picker.Item label="Select Severity" value="" />
-                            <Picker.Item label="Low" value="Low" />
-                            <Picker.Item label="Medium" value="Medium" />
-                            <Picker.Item label="High" value="High" />
-                            <Picker.Item label="Critical" value="Critical" />
+                            <Picker.Item label="Mild" value="Mild" />
+                            <Picker.Item label="Moderate" value="Moderate" />
+                            <Picker.Item label="Severe" value="Severe" />
                         </Picker>
                     ) : (
                         <Picker
@@ -70,10 +69,9 @@ const FormField = ({ title, value, placeholder, handleChangeText, otherStyles, .
                             style={{ flex: 2, color: "black" }}
                         >
                             <Picker.Item label="Select Severity" value="" />
-                            <Picker.Item label="Low" value="Low" />
-                            <Picker.Item label="Medium" value="Medium" />
-                            <Picker.Item label="High" value="High" />
-                            <Picker.Item label="Critical" value="Critical" />
+                            <Picker.Item label="Mild" value="Mild" />
+                            <Picker.Item label="Moderate" value="Moderate" />
+                            <Picker.Item label="Severe" value="Severe" />
                         </Picker>
                     )}
                 </View>
@@ -129,12 +127,29 @@ const FormField = ({ title, value, placeholder, handleChangeText, otherStyles, .
 
             {showPicker && (
                 <DateTimePicker
-                    value={date}
-                    mode={isTimePicker ? "time" : "date"} // Show time or date picker based on state
-                    is24Hour={true}
-                    onChange={onChange}
-                />
+                value={date}
+                mode={isTimePicker ? "time" : "date"} // Show time or date picker based on state
+                is24Hour={true}
+                display={Platform.OS === "ios" ? "spinner" : "default"} // Handle iOS/Android display
+                onChange={(event, selectedDate) => { 
+                    if (selectedDate) {
+                        setShowPicker(false);  // Close the picker after selection
+                        setDate(selectedDate);  // Update the date state
+                        
+                        // Call handleChangeText with the formatted date or time
+                        if (isTimePicker) {
+                            handleChangeText(selectedDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+                        } else {
+                            handleChangeText(selectedDate.toLocaleDateString());  // Format date
+                        }
+                    } else {
+                        setShowPicker(false);  // Close the picker without updating
+                    }
+                }}
+            />
+            
             )}
+
         </View>
     );
 };

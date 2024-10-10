@@ -1,10 +1,11 @@
-import { View, Text, ScrollView, TextInput, TouchableOpacity, Image, Alert } from 'react-native'
+import { View, Text, ScrollView, Alert } from 'react-native'
 import React from 'react'
 import FormField from '../../components/FormField'
 import CustomButton from '../../components/CustomButton'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useState } from 'react';
 import { addSymptom } from '../firebase/symptomService'
+import { router } from 'expo-router'
 
 const symptoms = () => {
     const [symptom, setSymptom] = useState('');
@@ -14,6 +15,7 @@ const symptoms = () => {
     const [note, setNote] = useState('');
     const [isSubmitting, setSubmitting] = useState(false);
 
+
     async function log() {
 
 
@@ -22,25 +24,21 @@ const symptoms = () => {
         try {
             const symptomData = {
                 symptom,
-                date: date instanceof Date ? date : new Date(),
+                date,
                 time,
                 severity,
                 note
             };
 
-            console.log("Submitting symptom data:", { symptom, date, time, severity, note });
-
-            // Call the addSymptom function from the service file
             await addSymptom(symptomData);
 
-            // Clear form after successful submission
             setSymptom('');
             setDate(new Date());
             setTime('');
             setSeverity('');
             setNote('');
 
-            Alert.alert('Success', 'Symptom logged successfully!');
+           router.replace('symptomsList');
         } catch (error) {
             Alert.alert('Error', error.message);
         } finally {
@@ -62,24 +60,21 @@ const symptoms = () => {
                         otherStyles="mt-6" />
                     <FormField
                         title="Date"
-                        value={date ? date.toLocaleDateString() : ''} // Display formatted date
+                        value={date} 
                         placeholder="Select Date"
                         handleChangeText={(selectedDate) => {
-                            // Assume selectedDate is a valid Date string or Date object
-                            const newDate = new Date(selectedDate); // Convert to Date object
-                            if (!isNaN(newDate)) {
-                                setDate(newDate); // Update the date state
-                            }
+                                setDate(selectedDate); 
                         }}
                         otherStyles="my-3"
                     />
+
 
                     <FormField
                         title="Time"
                         value={time}
                         placeholder="Select Time"
                         handleChangeText={(selectedTime) => {
-                            setTime(selectedTime); // Update the time state
+                            setTime(selectedTime); 
                         }}
                         otherStyles="my-3"
                     />
@@ -89,7 +84,7 @@ const symptoms = () => {
                         value={severity}
                         placeholder="Select Severity"
                         handleChangeText={setSeverity}
-                        otherStyles="my-3" // Set the selected severity
+                        otherStyles="my-3"
                     />
 
                     <FormField

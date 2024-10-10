@@ -90,7 +90,15 @@ const TabsLayout = () => {
                 />
 
                 <Tabs.Screen
-                    name="symptoms"
+                    name="symptomForm"
+                    options={{
+                        title: 'Symptoms',
+                        headerShown: false,
+                        tabBarButton: () => null,
+                    }}
+                />
+                <Tabs.Screen
+                    name="symptomsList"
                     options={{
                         title: 'Symptoms',
                         headerShown: false,
