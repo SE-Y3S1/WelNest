@@ -1,96 +1,154 @@
+import { View, Text, ScrollView, Switch, TouchableOpacity, Alert } from 'react-native';
 import React, { useState } from 'react';
-import { View, Text, TextInput, Switch, TouchableOpacity } from 'react-native';
+import FormField from '../components/FormField';
+import CustomButton from '../components/CustomButton';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { useRoute, useNavigation } from '@react-navigation/native'; // Import useNavigation
+import { addBedtime } from './firebase/sTrackService';  // Firebase service for Bedtime
 
 const SetBedtime = () => {
-  const [date, setDate] = useState(new Date());
-  const [bedTime, setBedTime] = useState(new Date());
-  const [doNotDisturb, setDoNotDisturb] = useState(true);
-  const [note, setNote] = useState('');
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const [showTimePicker, setShowTimePicker] = useState(false);
+    const [date, setDate] = useState(new Date());
+    const [bedTime, setBedTime] = useState(new Date());
+    const [doNotDisturb, setDoNotDisturb] = useState(true);
+    const [note, setNote] = useState('');
+    const [isSubmitting, setSubmitting] = useState(false);
+    const [showDatePicker, setShowDatePicker] = useState(false);
+    const [showTimePicker, setShowTimePicker] = useState(false);
 
-  const onChangeDate = (event, selectedDate) => {
-    setShowDatePicker(false);
-    if (selectedDate) setDate(selectedDate);
-  };
+    const route = useRoute();  // Access route parameters if needed
+    const navigation = useNavigation();  // Use the useNavigation hook to access the navigation object
 
-  const onChangeTime = (event, selectedTime) => {
-    setShowTimePicker(false);
-    if (selectedTime) setBedTime(selectedTime);
-  };
+    // Function to handle date change
+    const onChangeDate = (selectedDate) => {
+        setShowDatePicker(false);
+        if (selectedDate) setDate(selectedDate);
+    };
 
-  return (
-    <View style={{ flex: 1, padding: 20, backgroundColor: '#fff' }}>
-      <Text style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 20 }}>Set Bed Time</Text>
+    // Function to handle time change
+    const onChangeTime = (selectedTime) => {
+        setShowTimePicker(false);
+        if (selectedTime) setBedTime(selectedTime);
+    };
 
-      {/* Date Picker */}
-      <View style={{ marginBottom: 20 }}>
-        <Text style={{ fontSize: 16, marginBottom: 5 }}>Date</Text>
-        <TouchableOpacity onPress={() => setShowDatePicker(true)} style={{
-          padding: 10,
-          borderWidth: 1,
-          borderRadius: 5,
-          borderColor: '#ddd',
-          justifyContent: 'center',
-        }}>
-          <Text>{date.toLocaleDateString()}</Text>
-        </TouchableOpacity>
-        {showDatePicker && (
-          <DateTimePicker value={date} mode="date" display="default" onChange={onChangeDate} />
-        )}
-      </View>
+    // Function to log bedtime
+    async function logBedtime() {
+        setSubmitting(true);
 
-      {/* Time Picker */}
-      <View style={{ marginBottom: 20 }}>
-        <Text style={{ fontSize: 16, marginBottom: 5 }}>Bed Time</Text>
-        <TouchableOpacity onPress={() => setShowTimePicker(true)} style={{
-          padding: 10,
-          borderWidth: 1,
-          borderRadius: 5,
-          borderColor: '#ddd',
-          justifyContent: 'center',
-        }}>
-          <Text>{bedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</Text>
-        </TouchableOpacity>
-        {showTimePicker && (
-          <DateTimePicker value={bedTime} mode="time" display="default" onChange={onChangeTime} />
-        )}
-      </View>
+        try {
+            const bedTimeData = {
+                date: date instanceof Date ? date : new Date(),
+                bedTime: bedTime instanceof Date ? bedTime : new Date(),
+                doNotDisturb,
+                note
+            };
 
-      {/* Do Not Disturb Switch */}
-      <View style={{ marginBottom: 20 }}>
-        <Text style={{ fontSize: 16, marginBottom: 5 }}>Do Not Disturb</Text>
-        <Switch value={doNotDisturb} onValueChange={(value) => setDoNotDisturb(value)} />
-      </View>
+            console.log("Submitting bedtime data:", { date, bedTime, doNotDisturb, note });
 
-      {/* Note Input */}
-      <View style={{ marginBottom: 20 }}>
-        <Text style={{ fontSize: 16, marginBottom: 5 }}>Note</Text>
-        <TextInput
-          style={{
-            borderWidth: 1,
-            borderColor: '#ddd',
-            borderRadius: 5,
-            padding: 10,
-          }}
-          placeholder="Add a note..."
-          value={note}
-          onChangeText={(text) => setNote(text)}
-        />
-      </View>
+            // Call the addBedtime function from the service file
+            await addBedtime(bedTimeData);
 
-      {/* Save Button */}
-      <TouchableOpacity style={{
-        backgroundColor: '#FFA500',
-        padding: 15,
-        borderRadius: 5,
-        alignItems: 'center',
-      }}>
-        <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 16 }}>Save</Text>
-      </TouchableOpacity>
-    </View>
-  );
+            // Clear form after successful submission
+            setDate(new Date());
+            setBedTime(new Date());
+            setDoNotDisturb(true);
+            setNote('');
+
+            Alert.alert('Success', 'Bedtime logged successfully!');
+
+            // Navigate to Schedules page
+            navigation.navigate('schedules');  // Use navigation to go to Schedules screen
+        } catch (error) {
+            Alert.alert('Error', error.message);
+        } finally {
+            setSubmitting(false);
+        }
+    }
+
+    return (
+        <SafeAreaView>
+            <ScrollView>
+                <View className="w-full h-full justify-center px-4 my-6">
+                    <Text className="text-2xl text-black font-semibold -mt-5">Set Bedtime</Text>
+
+                    {/* Date Picker */}
+<FormField
+    title="Date"
+    value={date.toLocaleDateString()}
+    placeholder="Select a date"
+    handleChangeText={() => setShowDatePicker(true)} // Trigger date picker when tapped
+    otherStyles="my-3"
+    isTouchable // Add a prop to make it touchable
+/>
+
+{/* Date Picker */}
+{showDatePicker && (
+    <DateTimePicker
+        value={date}
+        mode="date"
+        display="default"
+        onChange={(event, selectedDate) => onChangeDate(selectedDate)}
+    />
+)}
+
+                    {/* Bed Time Picker */}
+                   {/* Bed Time Picker */}
+<FormField
+    title="Bed Time"
+    value={bedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+    placeholder="Select a time"
+    handleChangeText={() => setShowTimePicker(true)} // Trigger time picker when tapped
+    otherStyles="my-3"
+    isTouchable // Add a prop to make it touchable
+/>
+
+{/* Time Picker */}
+{showTimePicker && (
+    <DateTimePicker
+        value={bedTime}
+        mode="time"
+        display="default"
+        onChange={(event, selectedTime) => onChangeTime(selectedTime)}
+    />
+)}
+
+
+                    {/* Do Not Disturb Switch */}
+                    <View className="flex-row justify-between items-center mt-4">
+                        <Text className="text-lg">Do Not Disturb</Text>
+                        <Switch
+                            value={doNotDisturb}
+                            onValueChange={(value) => setDoNotDisturb(value)}
+                        />
+                    </View>
+
+                    {/* Note Input */}
+                    <FormField
+                        title="Note"
+                        value={note}
+                        placeholder="Enter a note here"
+                        handleChangeText={setNote}
+                        otherStyles="my-3"
+                    />
+
+                    {/* Save Button */}
+                    <CustomButton
+                        title="Add Bedtime"
+                        handlePress={logBedtime}
+                        containerStyles="mt-5"
+                        isLoading={isSubmitting}
+                    />
+
+                    {/* Navigate to Schedules Button */}
+                    <CustomButton
+                        title="Go to Schedules"
+                        handlePress={() => navigation.navigate('schedules')}  // Navigate to Schedules screen
+                        containerStyles="mt-5"
+                    />
+                </View>
+            </ScrollView>
+        </SafeAreaView>
+    );
 };
 
 export default SetBedtime;
