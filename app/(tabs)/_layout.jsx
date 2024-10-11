@@ -88,7 +88,15 @@ const TabsLayout = () => {
                         ),
                     }}
                 />
-                
+                <Tabs.Screen
+                    name="sleepTrack"
+                    options={{
+                        title: 'sleepTrack',
+                        headershown: false,
+                        tabBarButton: ()=>null,
+                        
+                    }}
+                />
 
             </Tabs>
         </>
