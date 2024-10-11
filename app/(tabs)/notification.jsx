@@ -1,10 +1,8 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import React from 'react';
 import { Ionicons } from '@expo/vector-icons'; // Ensure you have this package installed
 
 const notifications = [
- 
-  // Additional Notifications
   {
     id: 6,
     title: "Meal Plan Reminder",
@@ -89,14 +87,28 @@ const notifications = [
     icon: "heart-outline",
     color: "#FF3E00"
   },
+  
 ];
 
 const NotificationScreen = () => {
   return (
-    <View>
-      <Text>Notificatiobcbn</Text>
-    </View>
-  )
-}
+    <ScrollView contentContainerStyle="flex-grow bg-[#F9F9F9] pt-5 items-center px-4">
+      {notifications.map((notification, index) => (
+        <View 
+          key={notification.id} 
+          className={`bg-white shadow-md rounded-lg p-4 w-full max-w-md mb-4 ${
+            index === 0 ? 'mt-2' : 'mt-5'
+          }`}
+        >
+          <View className="flex-row items-center mb-2">
+            <Ionicons name={notification.icon} size={24} color={notification.color} />
+            <Text className="ml-2 text-xl font-bold text-[#333]">{notification.title}</Text>
+          </View>
+          <Text className="text-gray-600">{notification.message}</Text>
+        </View>
+      ))}
+    </ScrollView>
+  );
+};
 
 export default NotificationScreen;

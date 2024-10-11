@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image, Alert, Keyboard, TouchableWithoutFeedback, KeyboardAvoidingView } from 'react-native';
+import { View, Text,Platform, Image, Alert, Keyboard, TouchableWithoutFeedback, TouchableOpacity, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { addNutritionTip } from '../firebase/nutritionadd'; // Import the addNutritionTip function
+import FormField from '../../components/FormField'; // Import your FormField component
 
 const AddNutritionTip = () => {
   const navigation = useNavigation();
@@ -26,9 +27,9 @@ const AddNutritionTip = () => {
   };
 
   return (
-    <KeyboardAvoidingView className="flex-1 bg-white" behavior="padding">
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+   
         <View className="flex-1 bg-white">
+          {/* Header */}
           <View className="bg-[#FFDFA8] px-4 py-5 h-[25%] rounded-b-3xl">
             <View className="flex-row items-center">
               <TouchableOpacity onPress={() => navigation.navigate('nutrition')}>
@@ -40,34 +41,37 @@ const AddNutritionTip = () => {
               Share your knowledge for healthier living and well-being!
             </Text>
           </View>
-
+<ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
+          {/* Form fields */}
           <View className="mt-8 px-5 mt-5">
-            <Text className="text-lg font-semibold">Title</Text>
-            <TextInput
+            <FormField
+              title="Title"
               value={title}
               onChangeText={setTitle}
               placeholder="Add title..."
-              className="bg-gray-100 p-4 mt-2 rounded-lg shadow-sm text-gray-700"
+              otherStyles="my-3"
             />
 
-            <Text className="text-lg font-semibold mt-6">Description</Text>
-            <TextInput
+            <FormField
+              title="Description"
               value={description}
               onChangeText={setDescription}
-              placeholder="Description...."
-              className="bg-gray-100 p-3 pt-0 mt-2 rounded-lg shadow-sm text-gray-700 h-[48%] text-left text-sm"
-              placeholderTextColor="gray"
+              
+              placeholder="Add description..."
               multiline={true}
               numberOfLines={4}
+              inputStyle="h-[48%] text-left text-sm"
             />
 
+            {/* Add Tip Button */}
             <TouchableOpacity onPress={handleAddTip} className="bg-[#F59D00] mt-8 p-4 rounded-lg">
               <Text className="text-white text-center font-bold text-lg">Add Tip</Text>
             </TouchableOpacity>
           </View>
+          </ScrollView>
         </View>
-      </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
+   
+    
   );
 };
 

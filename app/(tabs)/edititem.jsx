@@ -38,7 +38,7 @@ const EditMealPlan = () => {
         try {
             await updateMealPlan(id, formData); // Use the updateMealPlan function
             Alert.alert("Success", "Meal plan updated successfully");
-            navigation.goBack();
+            navigation.goBack('added');
         } catch (error) {
             console.error("Error updating meal plan:", error);
             Alert.alert("Error", error.message || "There was an error updating the meal plan.");

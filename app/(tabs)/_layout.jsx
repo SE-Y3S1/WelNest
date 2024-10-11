@@ -1,9 +1,6 @@
 import { Stack } from 'expo-router';
 import { View, Image } from 'react-native';
 import { Tabs } from 'expo-router';
-import { View, Image } from 'react-native'
-import { Tabs } from 'expo-router'
-
 import { icons } from '../../constants';
 
 const TabIcon = ({ icon, color }) => {
@@ -83,6 +80,31 @@ const TabsLayout = () => {
                     ),
                 }}
             />
+               <Tabs.Screen
+                    name="symptomForm"
+                    options={{
+                        title: 'Symptoms',
+                        headerShown: false,
+                        tabBarButton: () => null,
+                    }}
+                />
+                <Tabs.Screen
+                    name="symptomsList"
+                    options={{
+                        title: 'Symptoms',
+                        headerShown: false,
+                        tabBarButton: () => null,
+                    }}
+                />
+
+                <Tabs.Screen
+                    name="updateSymptom"
+                    options={{
+                        title: 'Symptoms',
+                        headerShown: false,
+                        tabBarButton: () => null,
+                    }}
+                />
 
 
             

@@ -25,18 +25,16 @@ const RecipeScreen = () => {
   return (
     <View className="flex-1 bg-white">
       {/* Header */}
-      <View className="bg-[#F59D00] p-4 shadow-md rounded-xl mt-14">
-        <Text className="text-2xl font-bold text-center text-black">Wellness Pioneers</Text>
-      </View>
+  
 
       {/* Scrollable Recipe Suggestions */}
       
-        <Text className="text-xl font-bold text-left mb-3 ml-5 mt-5">Recipe Suggestions</Text>
+        <Text className="text-2xl font-bold text-left mb-3 ml-5 mt-14">Recipe Suggestions</Text>
 
         {/* Image */}
         <Image
           source={require('../../assets/recipes.png')} // Replace with your image
-          className="w-[90%] h-40 rounded-xl mb-5 self-center"
+          className="w-[90%] h-[25%] rounded-xl mb-5 self-center"
           resizeMode="cover"
         />
            <ScrollView className="flex-1 px-3 py-3">

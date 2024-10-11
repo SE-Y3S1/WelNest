@@ -1,7 +1,6 @@
-import{ useEffect } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { SplashScreen, Stack } from 'expo-router'
-import { useFonts } from 'expo-font'
+import { useEffect } from 'react';
+import { SplashScreen, Stack, Tabs } from 'expo-router';
+import { useFonts } from 'expo-font';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -21,23 +20,32 @@ const RootLayout = () => {
     useEffect(() => {
         if (error) throw error;
         if (fontsLoaded) SplashScreen.hideAsync();
-    }, [fontsLoaded, error])
+    }, [fontsLoaded, error]);
 
-    if (!fontsLoaded) {
-        return null;
-    }
-
-    if (!fontsLoaded && !error) {
-        return null;
+    if (!fontsLoaded || error) {
+        return null; // Return null until fonts are loaded or there is an error
     }
 
     return (
         <Stack>
+            {/* Main Screens */}
             <Stack.Screen name="index" options={{ headerShown: false }} />
             <Stack.Screen name="(auth)" options={{ headerShown: false }} />
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+           
+            {/* Additional Screens dynamically added */}
+            {[ 'recipe_detail'].map(screen => (
+                <Stack.Screen
+                    key={screen}
+                    name={screen}
+                    options={{
+                        title: screen,
+                        headerShown: false,
+                    }}
+                />
+            ))}
         </Stack>
-    )
-}
+    );
+};
 
-export default RootLayout
+export default RootLayout;

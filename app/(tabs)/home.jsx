@@ -33,7 +33,7 @@ const Home = () => {
       shadowRadius: 4,        // Shadow radius
       elevation: 8,           // Shadow for Android
     }}
-    onPress={() => navigation.navigate('mealPlanning')}
+    onPress={() => navigation.navigate('meal_planner')}
   >
     <Image 
       source={icons.mealPlanning} 
@@ -108,7 +108,7 @@ const Home = () => {
       shadowRadius: 4,
       elevation: 8,
     }}
-    onPress={() => navigation.navigate('healthGoalSetting')}
+    onPress={() => navigation.navigate('nutrition_add')}
   >
     <Image 
       source={icons.healthGoalSetting} 

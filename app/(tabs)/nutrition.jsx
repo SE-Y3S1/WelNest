@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, ScrollView, TouchableOpacity, Image, Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { collection, getFirestore, onSnapshot, query, limit } from 'firebase/firestore'; // Ensure the correct Firestore imports
+import { collection, getFirestore, onSnapshot } from 'firebase/firestore'; // Ensure the correct Firestore imports
 import app from '../../firebaseConfig'; // Ensure the correct path to your firebaseConfig
 
 const NutritionTips = () => {
@@ -43,13 +43,10 @@ const NutritionTips = () => {
   // Fetch nutrition tips from Firestore when the component mounts
   useEffect(() => {
     const db = getFirestore(app);
-    const tipsCollection = collection(db, 'nutritionTips');
-    
-    // Use Firestore's query and limit to limit the number of tips fetched (optional)
-    const tipsQuery = query(tipsCollection, limit(10)); // Adjust the limit as per your needs
+    const tipsCollection = collection(db, 'nutritionTips'); // Change 'nutritionTips' to your Firestore collection name
 
     // Use Firestore's onSnapshot to listen to real-time updates
-    const unsubscribe = onSnapshot(tipsQuery, (snapshot) => {
+    const unsubscribe = onSnapshot(tipsCollection, (snapshot) => {
       const tipsList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       setNutritionTips(tipsList); // Update state with new data
     });
@@ -111,35 +108,32 @@ const NutritionTips = () => {
 
       {/* Nutrition Tips List */}
       <ScrollView className="flex-1 px-4">
-        {combinedNutritionTips.length === 0 ? (
-          <Text className="text-center text-gray-500 mt-4">No nutrition tips available.</Text>
-        ) : (
-          combinedNutritionTips
-            .filter(tip => tip.title.toLowerCase().includes(search.toLowerCase())) // Filter tips based on search input
-            .map((tip, index) => (
-              <View key={index} className={`mb-4 rounded-xl p-4 border ${selectedTip === tip ? 'border-yellow-500' : 'border-gray-300'} ${selectedTip === tip ? 'bg-orange-200' : 'bg-white shadow-md'}`}>
-                {/* Add Button positioned in the top right corner */}
-                <TouchableOpacity className="absolute top-3 right-3 w-6 h-6 bg-yellow-500 rounded-full items-center justify-center">
-                  <Text className="text-white font-bold self-center">+</Text>
-                </TouchableOpacity>
-                
-                {/* Text Container */}
-                <TouchableOpacity onPress={() => setSelectedTip(tip)}>
-                  <Text className={`text-lg font-bold ${selectedTip === tip ? 'text-white' : 'text-gray-900'}`}>
-                    {tip.title}
-                  </Text>
-                  <Text className={`text-gray-600 ${selectedTip === tip ? 'text-white' : 'text-gray-600'}`}>
-                    {tip.description}
-                    <Text className="text-[#FEA405]"> Read More...</Text>
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            ))
-        )}
+        {/* Filter and map tips */}
+        {combinedNutritionTips
+          .filter(tip => tip.title.toLowerCase().includes(search.toLowerCase())) // Filter tips based on search input
+          .map((tip, index) => (
+            <View  className={`mb-4 rounded-xl p-4 border ${selectedTip === tip ? 'border-yellow-500' : 'border-gray-300'} ${selectedTip === tip ? 'bg-orange-200' : 'bg-white shadow-md'}`}>
+              {/* Add Button positioned in the top right corner */}
+              <TouchableOpacity className="absolute top-3 right-3 w-6 h-6 bg-yellow-500 rounded-full items-center justify-center">
+                <Text className="text-white font-bold self-center">+</Text>
+              </TouchableOpacity>
+              
+              {/* Text Container */}
+              <TouchableOpacity onPress={() => setSelectedTip(tip)}>
+                <Text className={`text-lg font-bold ${selectedTip === tip ? 'text-white' : 'text-gray-900'}`}>
+                  {tip.title}
+                </Text>
+                <Text className={`text-gray-600 ${selectedTip === tip ? 'text-white' : 'text-gray-600'}`}>
+                  {tip.description}
+                  <Text className="text-[#FEA405]"> Read More...</Text>
+                </Text>
+              </TouchableOpacity>
+            </View>
+          ))}
       </ScrollView>
 
       {/* Save Tip Button */}
-      <TouchableOpacity className="bg-[#F59D00] p-4 rounded-2xl mx-10 my-4" onPress={handleSaveTip} activeOpacity={0.8}>
+      <TouchableOpacity className="bg-[#F59D00] p-4 rounded-2xl mx-10 my-4" onPress={handleSaveTip}>
         <Text className="text-white text-center font-bold text-xl">Save Tip</Text>
       </TouchableOpacity>
     </KeyboardAvoidingView>

@@ -1,10 +1,8 @@
-// src/components/MealPlanner.jsx
-
 import React, { useState } from 'react';
-import { View, Text, Image, TextInput, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, Image, TextInput, ScrollView, TouchableOpacity, Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-import { useNavigation } from '@react-navigation/native'; // Import useNavigation
-import { addMealPlan } from '../firebase/mealplanner'; // Import the addMealPlan function
+import { useNavigation } from '@react-navigation/native'; 
+import { addMealPlan } from '../firebase/mealplanner';
 
 const MealPlanner = () => {
     const navigation = useNavigation(); // Initialize navigation
@@ -14,6 +12,8 @@ const MealPlanner = () => {
     const [mealItem2, setMealItem2] = useState('');
     const [mealItem3, setMealItem3] = useState('');
     const [quantity, setQuantity] = useState('');
+
+    const [focusedField, setFocusedField] = useState(''); // To keep track of which input is focused
 
     const handleDayChange = (itemValue) => {
         if (itemValue !== 'Select') {
@@ -42,10 +42,7 @@ const MealPlanner = () => {
         };
 
         try {
-            // Call the addMealPlan function from mealPlanner.js
             await addMealPlan(mealData);
-            
-            // Show success message
             Alert.alert('Success', 'Meal plan added successfully!', [{ text: 'OK' }]);
 
             // Reset fields after saving
@@ -55,111 +52,128 @@ const MealPlanner = () => {
             setMealItem2('');
             setMealItem3('');
             setQuantity('');
-            
-            // Navigate to the added screen
+
             navigation.navigate('recipe');
         } catch (error) {
-            // Handle errors (e.g., display an alert)
             Alert.alert('Error', 'Failed to add meal plan. Please try again.', [{ text: 'OK' }]);
         }
     };
 
     return (
-        <View className="flex-1">
-            <View className="bg-[#F59D00] p-4 shadow-md rounded-xl mt-14">
-                <Text className="text-2xl font-bold text-center text-black">Wellness Pioneers</Text>
-            </View>
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
+            <View className="flex-1">
+                <View className="bg-[#F59D00] p-4 shadow-md rounded-xl mt-12">
+                    <Text className="text-2xl font-bold text-center text-black">Wellness Pioneers</Text>
+                </View>
 
-            <ScrollView contentContainerStyle={{ paddingBottom: 100 }} className="p-5 bg-white flex-1">
-                <Text className="text-2xl font-bold my-1">Daily Meal Planner</Text>
-                <Image
-                    source={require('../../assets/meal_planning.png')}
-                    className="w-full h-52 mb-4 rounded-xl"
-                />
+                <ScrollView contentContainerStyle={{ paddingBottom: 20 }} className="p-5 bg-white flex-1">
+                    <Text className="text-2xl font-bold mb-3">Daily Meal Planner</Text>
+                    <Image
+                        source={require('../../assets/meal_planning.png')}
+                        className="w-full h-52 mb-4 rounded-xl"
+                    />
 
-                <View className="mb-4 flex-row items-center shadow-md">
-                    <Text className="text-lg mb-2 font-bold flex-1">Day of the Week:</Text>
-                    <View className="h-12 border border-gray-300 rounded flex-2 w-full max-w-[57.5%] shadow-md">
-                        <Picker
-                            selectedValue={selectedDay}
-                            onValueChange={handleDayChange}
-                            className="h-12 border-none rounded px-2"
-                        >
-                            <Picker.Item label="Select..." value="Select" enabled={false} />
-                            <Picker.Item label="Monday" value="Monday" />
-                            <Picker.Item label="Tuesday" value="Tuesday" />
-                            <Picker.Item label="Wednesday" value="Wednesday" />
-                            <Picker.Item label="Thursday" value="Thursday" />
-                            <Picker.Item label="Friday" value="Friday" />
-                            <Picker.Item label="Saturday" value="Saturday" />
-                            <Picker.Item label="Sunday" value="Sunday" />
-                        </Picker>
+                    {/* Day of the Week */}
+                    <View className="mb-4 flex-row items-center shadow-md">
+                        <Text className="text-lg mb-2 font-bold flex-1">Day of the Week:</Text>
+                        <View className={`h-12 border ${focusedField === 'day' ? 'border-[#F59D00]' : 'border-gray-300'} rounded flex-2 w-full max-w-[63%] shadow-md`}>
+                            <Picker
+                                selectedValue={selectedDay}
+                                onValueChange={handleDayChange}
+                                className="h-12 border-none rounded px-2"
+                                onFocus={() => setFocusedField('day')}
+                                onBlur={() => setFocusedField('')}
+                            >
+                                <Picker.Item label="Select..." value="Select" enabled={false} />
+                                <Picker.Item label="Monday" value="Monday" />
+                                <Picker.Item label="Tuesday" value="Tuesday" />
+                                <Picker.Item label="Wednesday" value="Wednesday" />
+                                <Picker.Item label="Thursday" value="Thursday" />
+                                <Picker.Item label="Friday" value="Friday" />
+                                <Picker.Item label="Saturday" value="Saturday" />
+                                <Picker.Item label="Sunday" value="Sunday" />
+                            </Picker>
+                        </View>
                     </View>
-                </View>
 
-                <View className="mb-4 flex-row items-center shadow-md">
-                    <Text className="text-lg mb-2 font-bold flex-1">Meal Type:</Text>
-                    <View className="h-12 border border-gray-300 rounded flex-2 w-full max-w-[57.5%] shadow-md">
-                        <Picker
-                            selectedValue={selectedMealType}
-                            onValueChange={handleMealTypeChange}
-                            className="h-12 border-none rounded px-2"
-                        >
-                            <Picker.Item label="Select..." value="Select" enabled={false} />
-                            <Picker.Item label="Breakfast" value="Breakfast" />
-                            <Picker.Item label="Lunch" value="Lunch" />
-                            <Picker.Item label="Dinner" value="Dinner" />
-                        </Picker>
+                    {/* Meal Type */}
+                    <View className="mb-4 flex-row items-center shadow-md">
+                        <Text className="text-lg mb-2 font-bold flex-1">Meal Type:</Text>
+                        <View className={`h-12 border ${focusedField === 'mealType' ? 'border-[#F59D00]' : 'border-gray-300'} rounded flex-2 w-full max-w-[63%] shadow-md`}>
+                            <Picker
+                                selectedValue={selectedMealType}
+                                onValueChange={handleMealTypeChange}
+                                className="h-12 border-none rounded px-2"
+                                onFocus={() => setFocusedField('mealType')}
+                                onBlur={() => setFocusedField('')}
+                            >
+                                <Picker.Item label="Select..." value="Select" enabled={false} />
+                                <Picker.Item label="Breakfast" value="Breakfast" />
+                                <Picker.Item label="Lunch" value="Lunch" />
+                                <Picker.Item label="Dinner" value="Dinner" />
+                            </Picker>
+                        </View>
                     </View>
-                </View>
 
-                <View className="mb-4 flex-row items-center">
-                    <Text className="text-lg mb-2 font-bold flex-1">Meal Item 1:</Text>
-                    <TextInput
-                        value={mealItem1}
-                        onChangeText={setMealItem1}
-                        className="h-10 border border-gray-300 rounded flex-2 w-full max-w-[57.5%]"
-                    />
-                </View>
+                    {/* Meal Item 1 */}
+                    <View className="mb-4 flex-row items-center">
+                        <Text className="text-lg mb-2 font-bold flex-1">Meal Item 1:</Text>
+                        <TextInput
+                            value={mealItem1}
+                            onChangeText={setMealItem1}
+                            onFocus={() => setFocusedField('mealItem1')}
+                            onBlur={() => setFocusedField('')}
+                            className={`h-10 border ${focusedField === 'mealItem1' ? 'border-[#F59D00]' : 'border-gray-300'} rounded flex-2 w-full max-w-[63%]`}
+                        />
+                    </View>
 
-                <View className="mb-4 flex-row items-center shadow-md">
-                    <Text className="text-lg mb-2 font-bold flex-1">Meal Item 2:</Text>
-                    <TextInput
-                        value={mealItem2}
-                        onChangeText={setMealItem2}
-                        className="h-10 border border-gray-300 rounded flex-2 w-full max-w-[57.5%]"
-                    />
-                </View>
+                    {/* Meal Item 2 */}
+                    <View className="mb-4 flex-row items-center shadow-md">
+                        <Text className="text-lg mb-2 font-bold flex-1">Meal Item 2:</Text>
+                        <TextInput
+                            value={mealItem2}
+                            onChangeText={setMealItem2}
+                            onFocus={() => setFocusedField('mealItem2')}
+                            onBlur={() => setFocusedField('')}
+                            className={`h-10 border ${focusedField === 'mealItem2' ? 'border-[#F59D00]' : 'border-gray-300'} rounded flex-2 w-full max-w-[63%]`}
+                        />
+                    </View>
 
-                <View className="mb-4 flex-row items-center">
-                    <Text className="text-lg mb-2 font-bold flex-1">Meal Item 3:</Text>
-                    <TextInput
-                        value={mealItem3}
-                        onChangeText={setMealItem3}
-                        className="h-10 border border-gray-300 rounded flex-2 w-full max-w-[57.5%]"
-                    />
-                </View>
+                    {/* Meal Item 3 */}
+                    <View className="mb-4 flex-row items-center">
+                        <Text className="text-lg mb-2 font-bold flex-1">Meal Item 3:</Text>
+                        <TextInput
+                            value={mealItem3}
+                            onChangeText={setMealItem3}
+                            onFocus={() => setFocusedField('mealItem3')}
+                            onBlur={() => setFocusedField('')}
+                            className={`h-10 border ${focusedField === 'mealItem3' ? 'border-[#F59D00]' : 'border-gray-300'} rounded flex-2 w-full max-w-[63%]`}
+                        />
+                    </View>
 
-                <View className="mb-4 flex-row items-center">
-                    <Text className="text-lg mb-2 font-bold flex-1">Quantity:</Text>
-                    <TextInput
-                        value={quantity}
-                        onChangeText={setQuantity}
-                        className="h-10 border border-gray-300 rounded flex-2 w-full max-w-[57.5%]"
-                        keyboardType="numeric"
-                    />
-                </View>
-            </ScrollView>
+                    {/* Quantity */}
+                    <View className="mb-4 flex-row items-center">
+                        <Text className="text-lg mb-2 font-bold flex-1">Quantity:</Text>
+                        <TextInput
+                            value={quantity}
+                            onChangeText={setQuantity}
+                            onFocus={() => setFocusedField('quantity')}
+                            onBlur={() => setFocusedField('')}
+                            className={`h-10 border ${focusedField === 'quantity' ? 'border-[#F59D00]' : 'border-gray-300'} rounded flex-2 w-full max-w-[63%]`}
+                            keyboardType="numeric"
+                        />
+                    </View>
 
-            <View className="absolute bottom-0 left-0 right-0 p-4 bg-white">
-                <TouchableOpacity
-                    onPress={saveMealToFirebase} // Directly calling the save function
-                    className="bg-[#F59D00] rounded-xl py-3 px-4 self-center w-1/2"
-                >
-                    <Text className="text-white text-center text-xl font-bold">Add Meal</Text>
-                </TouchableOpacity>
+                    {/* Add Meal button */}
+                    <TouchableOpacity
+                        onPress={saveMealToFirebase} 
+                        className="bg-[#F59D00] rounded-xl py-4 px-4 self-center w-3/4 mb-5"
+                    >
+                        <Text className="text-white text-center text-xl font-bold">Add Meal</Text>
+                    </TouchableOpacity>
+                </ScrollView>
             </View>
-        </View>
+        </KeyboardAvoidingView>
     );
 };
 
