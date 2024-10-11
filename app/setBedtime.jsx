@@ -66,9 +66,17 @@ const SetBedtime = () => {
 
     return (
        
-            <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 10, backgroundColor: '#fff' }}>
+            <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 9, backgroundColor: '#fff' }}>
                 <View className="w-full h-full justify-center px-4 my-6">
-                    <Text className="text-2xl text-black font-semibold -mt-5">Set Bedtime</Text>
+                <Text style={{ 
+        fontSize: 24, 
+        color: 'black', 
+        fontFamily: 'Poppins-SemiBold', 
+        marginTop: -40, 
+        textAlign: 'center',
+      }}>
+        Set Bedtime
+      </Text>
 
                     {/* Date Picker */}
 <FormField
@@ -114,7 +122,7 @@ const SetBedtime = () => {
 
                     {/* Do Not Disturb Switch */}
                     <View className="flex-row justify-between items-center mt-4">
-                        <Text className="text-lg">Do Not Disturb</Text>
+                    <Text style={{ fontFamily: 'Poppins-Medium', fontSize: 16 }}>Do Not Disturb</Text>
                         <Switch
                             value={doNotDisturb}
                             onValueChange={(value) => setDoNotDisturb(value)}

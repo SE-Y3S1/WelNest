@@ -21,36 +21,7 @@ const SleepTrack = () => {
         </Text>
         
 
-        {/* Sleep Quality Section */}
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            backgroundColor: '#FFEEAD',
-            padding: 20,
-            borderRadius: 10,
-            marginBottom: 20,
-            marginTop:20,
-          }}
-        >
-          <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#333' }}>
-            Your sleep quality
-          </Text>
-          {/* Placeholder for Sleep Quality Graph */}
-          <View
-            style={{
-              width: 50,
-              height: 50,
-              borderRadius: 25,
-              backgroundColor: '#FF9500',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <Text style={{ color: '#fff', fontWeight: 'bold' }}>80%</Text>
-          </View>
-        </View>
+      
       </View>
 
      {/* Action Buttons */} 
