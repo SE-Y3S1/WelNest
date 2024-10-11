@@ -15,7 +15,7 @@ const SetBedtime = () => {
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [showTimePicker, setShowTimePicker] = useState(false);
 
-    const route = useRoute();  // Access route parameters if needed
+    const route = useRoute();  
     const navigation = useNavigation();  // Use the useNavigation hook to access the navigation object
 
     // Function to handle date change

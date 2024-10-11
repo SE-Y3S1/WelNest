@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Alert, Switch } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { getAlarms, deleteAlarm } from './firebase/alarmService';  // Adjust the import path as necessary
+import { getAlarms, deleteAlarm } from './firebase/alarmService'; 
 import { useNavigation } from '@react-navigation/native';  // To navigate to other screens
 
 const Alarms = () => {

@@ -88,18 +88,7 @@ const TabsLayout = () => {
                         ),
                     }}
                 />
-                <Tabs.Screen
-                    name="sleepTrack"
-                    options={{
-                        title: 'SleepTracker',
-                        headershown: false,
-                        tabBarIcon: ({ color }) => (
-                            <TabIcon
-                                icon={icons.eye}
-                                color={color} />
-                        ),
-                    }}
-                />
+                
 
             </Tabs>
         </>

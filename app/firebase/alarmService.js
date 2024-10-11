@@ -8,7 +8,7 @@ import {
     doc,
     getFirestore
 } from "firebase/firestore";
-import app from "../../firebaseConfig"; // Ensure this points to your Firebase configuration
+import app from "../../firebaseConfig"; 
 
 const db = getFirestore(app);
 const alarmsCollection = collection(db, "alarms"); // Reference to the "alarms" collection

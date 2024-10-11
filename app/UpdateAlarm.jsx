@@ -1,10 +1,10 @@
 import { View, Text, ScrollView, Switch, TouchableOpacity, Alert } from 'react-native';
 import React, { useState } from 'react';
-import FormField from '../components/FormField'; // Assuming this component exists
-import CustomButton from '../components/CustomButton'; // Assuming this component exists
+import FormField from '../components/FormField'; 
+import CustomButton from '../components/CustomButton'; 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { updateAlarm } from './firebase/alarmService'; // Adjust the import path as necessary
+import { updateAlarm } from './firebase/alarmService'; 
 import { useRoute } from '@react-navigation/native';
 
 const UpdateAlarm = () => {

@@ -4,7 +4,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from '@react-native-picker/picker';
 import CustomButton from '../components/CustomButton';
 import FormField from '../components/FormField';
-import { addAlarm } from './firebase/alarmService'; // Import your Firebase service for alarms
+import { addAlarm } from './firebase/alarmService'; 
 import { useNavigation } from '@react-navigation/native';
 
 const SetAlarm = () => {
