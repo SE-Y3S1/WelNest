@@ -18,7 +18,7 @@ import clock from "../assets/icons/clock.png";
 import pencil from "../assets/icons/pencil.png";
 import bin from "../assets/icons/bin.png";
 import welnest from "../assets/icons/welnest.png";
-
+import onboarding from "../assets/icons/onboarding.png";
 export default {
   play,
   bookmark,
@@ -40,4 +40,5 @@ export default {
   pencil,
   bin,
   welnest,
+  onboarding
 };

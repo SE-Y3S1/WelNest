@@ -43,7 +43,10 @@ const TabsLayout = () => {
                     title: 'Home',
                     headerShown: false,
                     tabBarIcon: ({ color }) => (
-                        <TabIcon icon={icons.home} color={color} />
+                        <TabIcon
+                            icon={icons.home}
+                            color={color}
+                        />
                     ),
                 }}
             />
@@ -54,7 +57,10 @@ const TabsLayout = () => {
                     title: 'Calendar',
                     headerShown: false,
                     tabBarIcon: ({ color }) => (
-                        <TabIcon icon={icons.calendar} color={color} />
+                        <TabIcon
+                            icon={icons.calendar}
+                            color={color}
+                        />
                     ),
                 }}
             />
@@ -65,7 +71,10 @@ const TabsLayout = () => {
                     title: 'Notification',
                     headerShown: false,
                     tabBarIcon: ({ color }) => (
-                        <TabIcon icon={icons.bell} color={color} />
+                        <TabIcon
+                            icon={icons.bell}
+                            color={color}
+                        />
                     ),
                 }}
             />
@@ -76,49 +85,16 @@ const TabsLayout = () => {
                     title: 'Profile',
                     headerShown: false,
                     tabBarIcon: ({ color }) => (
-                        <TabIcon icon={icons.profile} color={color} />
+                        <TabIcon
+                            icon={icons.profile}
+                            color={color}
+                        />
                     ),
                 }}
             />
-               <Tabs.Screen
-                    name="symptomForm"
-                    options={{
-                        title: 'Symptoms',
-                        headerShown: false,
-                        tabBarButton: () => null,
-                    }}
-                />
-                <Tabs.Screen
-                    name="symptomsList"
-                    options={{
-                        title: 'Symptoms',
-                        headerShown: false,
-                        tabBarButton: () => null,
-                    }}
-                />
-
-                <Tabs.Screen
-                    name="updateSymptom"
-                    options={{
-                        title: 'Symptoms',
-                        headerShown: false,
-                        tabBarButton: () => null,
-                    }}
-                />
-                 <Tabs.Screen
-                    name="sleepTrack"
-                    options={{
-                        title: 'sleepTrack',
-                        headerShown: false,
-                        tabBarButton: () => null,
-                    }}
-                />
-
-
-            
 
             {/* Hidden Tabs */}
-            {['meal_planner', 'recipe', 'nutrition', 'nutrition_add','added','edititem'].map(screen => (
+            {['sleepTrack', 'symptomForm', 'symptomsList', 'updateSymptom', 'meal_planner', 'recipe', 'nutrition', 'nutrition_add', 'added', 'edititem'].map(screen => (
                 <Tabs.Screen
                     key={screen}
                     name={screen}
