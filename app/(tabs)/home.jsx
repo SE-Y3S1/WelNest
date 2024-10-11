@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Text, View, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { Text, View, ScrollView, TouchableOpacity, Image, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from 'expo-router';
 
@@ -16,10 +16,15 @@ const Home = () => {
 
   return (
     <SafeAreaView className="bg-white h-full">
-      <ScrollView contentContainerStyle={{ paddingBottom: 10 }}>
-        <View className="px-6 py-1">
+      <ScrollView >
+      <View
+          className="w-full flex-1 justify-center h-full px-7 my-6"
+          style={{
+            minHeight: Dimensions.get("window").height - 100,
+          }}
+        >
           {/* Greeting */}
-          <Text className="text-3xl font-bold text-black mb-2 text-center">Wellness Pioneers</Text>
+          <Text className="text-3xl font-bold text-black mb-6 text-center">Wellness Pioneers</Text>
 
           {/* Tile Buttons */}
           <View className="space-y-4">
