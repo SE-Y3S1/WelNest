@@ -19,13 +19,13 @@ const Home = () => {
       <ScrollView contentContainerStyle={{ paddingBottom: 10 }}>
         <View className="px-6 py-1">
           {/* Greeting */}
-          <Text className="text-3xl font-bold text-black mb-2 text-center">Wellness Pioneers</Text>
+          <Text className="text-3xl font-bold text-black mb-2 text-center mt-8">Wellness Pioneers</Text>
 
           {/* Tile Buttons */}
           <View className="space-y-4">
             {/* Meal Planning */}
             <TouchableOpacity
-    className="bg-gray-200 rounded-lg p-4 flex-row items-center"
+    className="bg-[#FFE3CB]  rounded-lg p-4 flex-row items-center"
     style={{
       shadowColor: '#000',    // Shadow color
       shadowOffset: { width: 0, height: 4 },  // Shadow offset
@@ -50,7 +50,7 @@ const Home = () => {
 
             {/* Symptom Logging */}
   <TouchableOpacity
-    className="bg-gray-200 rounded-lg p-4 flex-row items-center"
+    className="bg-[#FFE3CB] rounded-lg p-4 flex-row items-center"
     style={{
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 4 },
@@ -75,7 +75,7 @@ const Home = () => {
 
   {/* Sleep Tracking */}
   <TouchableOpacity
-    className="bg-gray-200 rounded-lg p-4 flex-row items-center"
+    className="bg-[#FFE3CB] rounded-lg p-4 flex-row items-center"
     style={{
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 4 },
@@ -100,7 +100,7 @@ const Home = () => {
 
   {/* Health Goal Setting */}
   <TouchableOpacity
-    className="bg-gray-200 rounded-lg p-4 flex-row items-center"
+    className="bg-[#FFE3CB] rounded-lg p-4 flex-row items-center"
     style={{
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 4 },
