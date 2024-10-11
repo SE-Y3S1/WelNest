@@ -69,7 +69,15 @@ const SetAlarm = () => {
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 20, backgroundColor: '#fff' }}>
-      <Text style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 20 }}>Set Alarm</Text>
+      <Text style={{ 
+        fontSize: 24, 
+        color: 'black', 
+        fontFamily: 'Poppins-SemiBold', 
+        marginTop: -10, 
+        textAlign: 'center',
+      }}>
+        Set Alarm
+      </Text>
 
       {/* Alarm Name Input */}
       <FormField
@@ -118,7 +126,7 @@ const SetAlarm = () => {
 
       {/* Repeat Picker */}
       <View style={{ marginBottom: 20 }}>
-        <Text style={{ fontSize: 16, marginBottom: 5 }}>Repeat</Text>
+      <Text style={{ fontFamily: 'Poppins-Medium', fontSize: 16 }}>Repeat</Text>
         <Picker
           selectedValue={repeat}
           style={{ height: 50, borderColor: '#ddd', borderWidth: 1, borderRadius: 5 }}
@@ -133,13 +141,13 @@ const SetAlarm = () => {
 
       {/* Alarm Enabled Switch */}
       <View style={{ marginBottom: 20 }}>
-        <Text style={{ fontSize: 16, marginBottom: 5 }}>Alarm Enabled</Text>
+      <Text style={{ fontFamily: 'Poppins-Medium', fontSize: 16 }}>Alarm Enabled</Text>
         <Switch value={alarmEnabled} onValueChange={(value) => setAlarmEnabled(value)} />
       </View>
 
       {/* Vibration Toggle */}
       <View style={{ marginBottom: 20 }}>
-        <Text style={{ fontSize: 16, marginBottom: 5 }}>Vibrate</Text>
+      <Text style={{ fontFamily: 'Poppins-Medium', fontSize: 16 }}>Vibrate while alarming</Text>
         <Switch value={vibrate} onValueChange={(value) => setVibrate(value)} />
       </View>
 
