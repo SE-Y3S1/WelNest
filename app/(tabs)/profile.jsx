@@ -41,7 +41,7 @@ const Profile = () => {
         {/* Added Meals & Tips */}
         <TouchableOpacity
           className="flex-row items-center bg-[#FFE3CB] py-4 px-6 mb-4 rounded-xl"
-          onPress={() => navigation.navigate('Addedstuff')} // Replace with actual screen
+          onPress={() => navigation.navigate('added')} // Replace with actual screen
         >
           <Image
             source={require('../../assets/saved.png')} // Replace with your icon path

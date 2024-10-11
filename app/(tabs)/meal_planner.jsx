@@ -1,9 +1,13 @@
+// src/components/MealPlanner.jsx
+
 import React, { useState } from 'react';
 import { View, Text, Image, TextInput, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import { useNavigation } from '@react-navigation/native'; // Import useNavigation
 import { addMealPlan } from '../firebase/mealplanner'; // Import the addMealPlan function
 
 const MealPlanner = () => {
+    const navigation = useNavigation(); // Initialize navigation
     const [selectedDay, setSelectedDay] = useState('');
     const [selectedMealType, setSelectedMealType] = useState('');
     const [mealItem1, setMealItem1] = useState('');
@@ -26,7 +30,7 @@ const MealPlanner = () => {
     // Function to save the meal plan
     const saveMealToFirebase = async () => {
         if (!selectedDay || !selectedMealType || !mealItem1 || !quantity) {
-            alert('Please fill in all required fields.');
+            Alert.alert('Error', 'Please fill in all required fields.');
             return;
         }
 
@@ -37,19 +41,27 @@ const MealPlanner = () => {
             quantity,
         };
 
-        // Call the addMealPlan function from mealPlanner.js
-        await addMealPlan(mealData);
-        
-        // Show success message
-        Alert.alert('Success', 'Meal plan added successfully!', [{ text: 'OK' }]);
+        try {
+            // Call the addMealPlan function from mealPlanner.js
+            await addMealPlan(mealData);
+            
+            // Show success message
+            Alert.alert('Success', 'Meal plan added successfully!', [{ text: 'OK' }]);
 
-        // Reset fields after saving
-        setSelectedDay('');
-        setSelectedMealType('');
-        setMealItem1('');
-        setMealItem2('');
-        setMealItem3('');
-        setQuantity('');
+            // Reset fields after saving
+            setSelectedDay('');
+            setSelectedMealType('');
+            setMealItem1('');
+            setMealItem2('');
+            setMealItem3('');
+            setQuantity('');
+            
+            // Navigate to the added screen
+            navigation.navigate('recipe');
+        } catch (error) {
+            // Handle errors (e.g., display an alert)
+            Alert.alert('Error', 'Failed to add meal plan. Please try again.', [{ text: 'OK' }]);
+        }
     };
 
     return (
@@ -141,7 +153,7 @@ const MealPlanner = () => {
 
             <View className="absolute bottom-0 left-0 right-0 p-4 bg-white">
                 <TouchableOpacity
-                    onPress={saveMealToFirebase} // Save meal to Firestore when button is pressed
+                    onPress={saveMealToFirebase} // Directly calling the save function
                     className="bg-[#F59D00] rounded-xl py-3 px-4 self-center w-1/2"
                 >
                     <Text className="text-white text-center text-xl font-bold">Add Meal</Text>

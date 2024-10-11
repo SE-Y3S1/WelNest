@@ -26,10 +26,13 @@ const DetailRecipeScreen = () => {
 
   return (
     <View className="flex-1 bg-white">
+       <TouchableOpacity onPress={() => navigation.navigate('recipe')}>
+            <Image source={require('../assets/back-icon.png')} className="w-8 h-8 mt-12 ml-1" />
+          </TouchableOpacity>
       {/* Static Recipe Image */}
       <Image
         source={require('../assets/chicken-alfredo.png')} // Replace with your image path
-        className="w-5/6 h-[32%] mb-4 rounded-3xl self-center mt-14"
+        className="w-5/6 h-[32%] mb-4 rounded-3xl self-center"
       />
 
       {/* Scrollable Recipe Details */}
@@ -61,7 +64,7 @@ const DetailRecipeScreen = () => {
           </View>
         </View>
 
-        <View className="w-5/6 h-0.5 bg-black my-2 self-center" />
+        <View className="w-5/6 h-0.5 bg-black my-2 self-center mt-0.5" />
 
         {/* Description */}
         <View className="mb-4">
@@ -72,7 +75,7 @@ const DetailRecipeScreen = () => {
           </Text>
         </View>
 
-        <View className="w-5/6 h-0.5 bg-black my-2 self-center mt-1" />
+        <View className="w-5/6 h-0.5 bg-black my-2 self-center mt-0.5" />
 
         {/* Ingredients */}
         <View>

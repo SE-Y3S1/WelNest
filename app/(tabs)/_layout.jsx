@@ -81,8 +81,11 @@ const TabsLayout = () => {
                 }}
             />
 
+
+            
+
             {/* Hidden Tabs */}
-            {['meal_planner', 'recipe', 'nutrition', 'nutrition_add'].map(screen => (
+            {['meal_planner', 'recipe', 'nutrition', 'nutrition_add','added','edititem'].map(screen => (
                 <Tabs.Screen
                     key={screen}
                     name={screen}

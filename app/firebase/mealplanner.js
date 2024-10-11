@@ -1,8 +1,12 @@
+// src/firebase/mealplanner.js
+
 import {
     Timestamp,
     addDoc,
     collection,
     getFirestore,
+    updateDoc,
+    doc,
 } from "firebase/firestore";
 import app from "../../firebaseConfig"; // Ensure the correct path to your firebaseConfig
 
@@ -27,4 +31,21 @@ async function addMealPlan(data) {
     }
 }
 
-export { addMealPlan };
+// Function to update meal plan
+async function updateMealPlan(id, updatedData) {
+    const mealDocRef = doc(db, 'mealPlans', id); // Reference to the document to update
+
+    try {
+        await updateDoc(mealDocRef, {
+            day: updatedData.day,
+            mealType: updatedData.mealType,
+            items: updatedData.items,
+            quantity: updatedData.quantity,
+        });
+        console.log("Meal plan updated successfully:", updatedData);
+    } catch (error) {
+        console.error("Error updating Meal: ", error);
+    }
+}
+
+export { addMealPlan, updateMealPlan };
