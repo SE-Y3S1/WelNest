@@ -41,7 +41,7 @@ const TabsLayout = () => {
                     name="home"
                     options={{
                         title: 'Home',
-                        headershown: false,
+                        headerShown: false,
                         tabBarIcon: ({ color }) => (
                             <TabIcon
                                 icon={icons.home}
@@ -54,7 +54,7 @@ const TabsLayout = () => {
                     name="calendar"
                     options={{
                         title: 'Calendar',
-                        headershown: false,
+                        headerShown: false,
                         tabBarIcon: ({ color }) => (
                             <TabIcon
                                 icon={icons.calendar}
@@ -67,7 +67,7 @@ const TabsLayout = () => {
                     name="notification"
                     options={{
                         title: 'Notification',
-                        headershown: false,
+                        headerShown: false,
                         tabBarIcon: ({ color }) => (
                             <TabIcon
                                 icon={icons.bell}
@@ -80,7 +80,7 @@ const TabsLayout = () => {
                     name="profile"
                     options={{
                         title: 'Profile',
-                        headershown: false,
+                        headerShown: false,
                         tabBarIcon: ({ color }) => (
                             <TabIcon
                                 icon={icons.profile}
@@ -92,7 +92,7 @@ const TabsLayout = () => {
                     name="sleepTrack"
                     options={{
                         title: 'sleepTrack',
-                        headershown: false,
+                        headerShown: false,
                         tabBarButton: ()=>null,
                         
                     }}

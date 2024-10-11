@@ -160,7 +160,7 @@ const CalendarPage = () => {
   return (
     <SafeAreaView className="flex-1 bg-[#F9F9F9]">
       <View>
-        <Text className="text-black text-3xl font-bold text-center">Calendar</Text>
+        <Text className="text-black text-3xl font-bold text-center mt-12">Calendar</Text>
       </View>
       <FlatList
         data={getData()}
