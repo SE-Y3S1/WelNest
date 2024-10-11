@@ -9,11 +9,19 @@ const symptomsList = () => {
     const [symptomsData, setSymptomsData] = useState([]);
 
     useEffect(() => {
-        const unsubscribe = fetchAllSymptoms((data) => {
-            setSymptomsData(data); 
+    const unsubscribe = fetchAllSymptoms((data) => {
+        // Convert the date format from DD/MM/YYYY to YYYY-MM-DD for proper sorting
+        const sortedData = data.sort((a, b) => {
+            const dateA = new Date(a.date.split('/').reverse().join('-')); // Convert to YYYY-MM-DD
+            const dateB = new Date(b.date.split('/').reverse().join('-')); // Convert to YYYY-MM-DD
+            return dateB - dateA; // Sort in descending order
         });
-        return () => unsubscribe();
-    }, []);
+        setSymptomsData(sortedData); 
+    });
+    return () => unsubscribe();
+}, []);
+
+    
 
     const handleDeleteSymptom = (id) => {
         Alert.alert(
