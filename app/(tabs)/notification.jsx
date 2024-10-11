@@ -93,33 +93,10 @@ const notifications = [
 
 const NotificationScreen = () => {
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      {notifications.map((notification,index) => (
-      <View 
-      key={notification.id} 
-      className={`bg-[#FBEFDA]  shadow-md rounded-lg p-4 w-full max-w-md mb-4 ${
-        index === 0 ? 'mt-10' : 'mt-0.5'
-      }`}
-    >
-          <View className="flex-row items-center mb-2">
-            <Ionicons name={notification.icon} size={24} color={notification.color} />
-            <Text className="ml-2 text-xl font-bold text-[#333]">{notification.title}</Text>
-          </View>
-          <Text className="text-gray-600">{notification.message}</Text>
-        </View>
-      ))}
-    </ScrollView>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    backgroundColor: '#F9F9F9',
-    paddingTop: 20,
-    alignItems: 'center',
-    paddingHorizontal: 16,
-  },
-});
+    <View>
+      <Text>Notificatiobcbn</Text>
+    </View>
+  )
+}
 
 export default NotificationScreen;

@@ -8,10 +8,10 @@ const Home = () => {
 
   
   const icons = {
-    mealPlanning: require('../../assets/icons/play.png'), 
-    symptomLogging: require('../../assets/icons/play.png'),
-    sleepTracking: require('../../assets/icons/play.png'),
-    healthGoalSetting: require('../../assets/icons/play.png'),
+    mealPlanning: require('../../assets/images/meal.png'), 
+    symptomLogging: require('../../assets/images/image.png'),
+    sleepTracking: require('../../assets/images/sleep.png'),
+    healthGoalSetting: require('../../assets/images/goalsetting.png'),
   };
 
   return (
@@ -33,7 +33,7 @@ const Home = () => {
       shadowRadius: 4,        // Shadow radius
       elevation: 8,           // Shadow for Android
     }}
-    onPress={() => navigation.navigate('meal_planner')}
+    onPress={() => navigation.navigate('mealPlanning')}
   >
     <Image 
       source={icons.mealPlanning} 
@@ -58,7 +58,7 @@ const Home = () => {
       shadowRadius: 4,
       elevation: 8,
     }}
-    onPress={() => navigation.navigate('symptomLogging')}
+    onPress={() => navigation.navigate('symptomsList')}
   >
     <Image 
       source={icons.symptomLogging} 

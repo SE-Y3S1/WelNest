@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Alert } from 'react-native'
+import { View, Text, ScrollView, Alert, Image, Dimensions } from 'react-native'
 import { useState } from 'react'
 import { StatusBar } from 'expo-status-bar'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -7,7 +7,7 @@ import CustomButton from '../../components/CustomButton'
 import { Link, router } from "expo-router";
 import app from '../../firebaseConfig';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-
+import { icons } from '../../constants';
 const SignIn = () => {
   const [isSubmitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
@@ -29,14 +29,26 @@ const SignIn = () => {
       Alert.alert('Ooops', error.message);
     
   }
+  
 
   };
+
   return (
     <SafeAreaView className="h=full">
     <ScrollView>
-      <View className="w-full min-h-[95vh] justify-center px-4 my-6">
+    <View
+          className="w-full flex justify-center h-full px-4 my-6"
+          style={{
+            minHeight: Dimensions.get("window").height - 100,
+          }}
+        >
+      <Image
+            source={icons.welnest}
+            resizeMode="contain"
+             className="w-60 h-28 mx-auto"
+          />
         <Text className="text-2xl text-black font-psemibold mt-10">
-          Log in to Wellnest
+          Log in to WelNest
         </Text>
         <FormField
           title="Email"
