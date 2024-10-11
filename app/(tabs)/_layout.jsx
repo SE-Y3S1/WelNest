@@ -70,29 +70,17 @@ const TabsLayout = () => {
                 }}
             />
 
-                <Tabs.Screen
-                    name="profile"
-                    options={{
-                        title: 'Profile',
-                        headershown: false,
-                        tabBarIcon: ({ color }) => (
-                            <TabIcon
-                                icon={icons.profile}
-                                color={color} />
-                        ),
-                    }}
-                />
-                <Tabs.Screen
-                    name="sleepTrack"
-                    options={{
-                        title: 'sleepTrack',
-                        headershown: false,
-                        tabBarButton: ()=>null,
-                        
-                    }}
-                />
-
-                <Tabs.Screen
+            <Tabs.Screen
+                name="profile"
+                options={{
+                    title: 'Profile',
+                    headerShown: false,
+                    tabBarIcon: ({ color }) => (
+                        <TabIcon icon={icons.profile} color={color} />
+                    ),
+                }}
+            />
+               <Tabs.Screen
                     name="symptomForm"
                     options={{
                         title: 'Symptoms',
@@ -113,6 +101,14 @@ const TabsLayout = () => {
                     name="updateSymptom"
                     options={{
                         title: 'Symptoms',
+                        headerShown: false,
+                        tabBarButton: () => null,
+                    }}
+                />
+                 <Tabs.Screen
+                    name="sleepTrack"
+                    options={{
+                        title: 'sleepTrack',
                         headerShown: false,
                         tabBarButton: () => null,
                     }}
