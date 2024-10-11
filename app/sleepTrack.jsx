@@ -19,9 +19,7 @@ const SleepTrack = () => {
         <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#000',textAlign: 'center' }}>
           Sleep Tracker
         </Text>
-        <Text style={{ fontSize: 16, color: '#555', marginBottom: 20, textAlign: 'center' }}>
-          Welcome back James!
-        </Text>
+        
 
         {/* Sleep Quality Section */}
         <View
@@ -33,6 +31,7 @@ const SleepTrack = () => {
             padding: 20,
             borderRadius: 10,
             marginBottom: 20,
+            marginTop:20,
           }}
         >
           <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#333' }}>
