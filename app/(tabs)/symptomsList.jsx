@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, SafeAreaView, View, Text, Alert } from 'react-native';
+import { ScrollView, SafeAreaView, View, Text, Alert, TouchableOpacity, Image } from 'react-native';
 import SymptomCard from '../../components/symptomCard';
 import { fetchAllSymptoms, deleteSymptom } from '../firebase/symptomService';
+import { router } from 'expo-router';
+import { icons } from '../../constants';
 
 const symptomsList = () => {
     const [symptomsData, setSymptomsData] = useState([]);
 
     useEffect(() => {
         const unsubscribe = fetchAllSymptoms((data) => {
-            setSymptomsData(data); // Update state with real-time data
+            setSymptomsData(data); 
         });
-
-        // Clean up the listener on unmount
         return () => unsubscribe();
     }, []);
 
@@ -24,8 +24,8 @@ const symptomsList = () => {
                 {
                     text: "OK",
                     onPress: async () => {
-                        await deleteSymptom(id); // Call the delete function
-                        setSymptomsData(prevSymptoms => prevSymptoms.filter(symptom => symptom.id !== id)); // Update state
+                        await deleteSymptom(id); 
+                        setSymptomsData(prevSymptoms => prevSymptoms.filter(symptom => symptom.id !== id));
                     },
                 },
             ],
@@ -33,11 +33,27 @@ const symptomsList = () => {
         );
     };
 
+    const handleUpdateSymptom = (symptom) => {
+        router.push({
+            pathname: '/updateSymptom',
+            params: {
+                id: symptom.id,
+                symptom: symptom.symptom,
+                note: symptom.note,
+                date: symptom.date,
+                time: symptom.time,
+                severity: symptom.severity,
+            },
+        });
+    };
+
 
     return (
-        <SafeAreaView>
-            <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
-                <View className="px-6">
+        <SafeAreaView className="flex-1">
+            <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
+                <View className="w-full px-4 mt-16">
+                <Text className="text-2xl text-black font-psemibold mb-5">Symptoms</Text>
+                <View className="items-center">
                     {symptomsData.map((symptom, index) => (
                         <SymptomCard
                             key={index}
@@ -47,10 +63,26 @@ const symptomsList = () => {
                             time={symptom.time}
                             severity={symptom.severity}
                             onDelete={() => handleDeleteSymptom(symptom.id)}
+                            onEdit={() => handleUpdateSymptom(symptom)}
                         />
                     ))}
                 </View>
+                </View>
             </ScrollView>
+            <View className="absolute bottom-5 w-full flex-row justify-center">
+                <TouchableOpacity
+                    onPress={() => {
+                        router.push('/symptomForm');
+                    }}
+                >
+                    <Image
+                        className="w-12 h-12"
+                        source={icons.plus}
+                        resizeMode="contain"
+                    />
+                </TouchableOpacity>
+            </View>
+            
         </SafeAreaView>
     )
 }

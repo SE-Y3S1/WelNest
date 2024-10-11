@@ -105,6 +105,15 @@ const TabsLayout = () => {
                         tabBarButton: () => null,
                     }}
                 />
+
+                <Tabs.Screen
+                    name="updateSymptom"
+                    options={{
+                        title: 'Symptoms',
+                        headerShown: false,
+                        tabBarButton: () => null,
+                    }}
+                />
             </Tabs>
         </>
     )

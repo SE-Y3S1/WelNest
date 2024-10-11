@@ -17,7 +17,7 @@ const CustomButton = ({
       }`}
       disabled={isLoading}
     >
-      <Text className={`text-black font-psemibold text-lg ${textStyles}`}>
+      <Text className={`text-black font-pbold text-xl ${textStyles}`}>
         {title}
       </Text>
 

@@ -1,32 +1,36 @@
-import { View, Text, ScrollView, Alert } from 'react-native'
-import React from 'react'
-import FormField from '../../components/FormField'
-import CustomButton from '../../components/CustomButton'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { useState } from 'react';
-import { addSymptom } from '../firebase/symptomService'
-import { router } from 'expo-router'
+import { View, Text, ScrollView, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import FormField from '../../components/FormField';
+import CustomButton from '../../components/CustomButton';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { updateSymptom } from '../firebase/symptomService';
+import { router, useLocalSearchParams } from 'expo-router';
 
-const symptomForm = () => {
-    const [symptom, setSymptom] = useState('');
-    const [date, setDate] = useState(new Date());
-    const [time, setTime] = useState('');
-    const [severity, setSeverity] = useState('');
-    const [note, setNote] = useState('');
+const UpdateSymptom = () => {
+    const { id, symptom: initialSymptom, date: initialDate, time: initialTime, severity: initialSeverity, note: initialNote } = useLocalSearchParams(); // Get params
+
+    const [symptom, setSymptom] = useState(initialSymptom || '');
+    const [date, setDate] = useState(initialDate || '');
+    const [time, setTime] = useState(initialTime || '');
+    const [severity, setSeverity] = useState(initialSeverity || '');
+    const [note, setNote] = useState(initialNote || '');
     const [isSubmitting, setSubmitting] = useState(false);
 
+    useEffect(() => {
+        if (initialSymptom) setSymptom(initialSymptom);
+        if (initialDate) setDate((initialDate)); 
+        if (initialTime) setTime(initialTime);
+        if (initialSeverity) setSeverity(initialSeverity);
+        if (initialNote) setNote(initialNote);
+    }, [initialSymptom, initialDate, initialTime, initialSeverity, initialNote]);
 
-    async function log() {
-        if (!symptom || !date || !time || !severity) {
-            Alert.alert('Error', 'All fields must be filled out');
-            return;
-        }
 
 
+    async function handleUpdate() {
         setSubmitting(true);
 
         try {
-            const symptomData = {
+            const updatedSymptomData = {
                 symptom,
                 date,
                 time,
@@ -34,15 +38,8 @@ const symptomForm = () => {
                 note
             };
 
-            await addSymptom(symptomData);
-
-            setSymptom('');
-            setDate(new Date());
-            setTime('');
-            setSeverity('');
-            setNote('');
-
-           router.push('symptomsList');
+            await updateSymptom(id, updatedSymptomData); 
+            router.replace('/symptomsList');
         } catch (error) {
             Alert.alert('Error', error.message);
         } finally {
@@ -53,36 +50,33 @@ const symptomForm = () => {
     return (
         <SafeAreaView>
             <ScrollView>
-
                 <View className="w-full h-full justify-center px-4 my-6">
-                    <Text className="text-2xl text-black font-pbold -mt-5 text-center">Log a Symptom</Text>
+                    <Text className="text-2xl text-black font-semibold text-center -mt-5">Update Symptom</Text>
                     <FormField
                         placeholder="Enter your symptom here"
                         title="Symptom"
                         value={symptom}
                         handleChangeText={setSymptom}
-                        otherStyles="mt-6" />
+                        otherStyles="mt-6"
+                    />
                     <FormField
                         title="Date"
-                        value={date} 
+                        value={date}
                         placeholder="Select Date"
                         handleChangeText={(selectedDate) => {
-                                setDate(selectedDate); 
+                            setDate(selectedDate);
                         }}
                         otherStyles="my-3"
                     />
-
-
                     <FormField
                         title="Time"
                         value={time}
                         placeholder="Select Time"
                         handleChangeText={(selectedTime) => {
-                            setTime(selectedTime); 
+                            setTime(selectedTime);
                         }}
                         otherStyles="my-3"
                     />
-
                     <FormField
                         title="Severity"
                         value={severity}
@@ -90,7 +84,6 @@ const symptomForm = () => {
                         handleChangeText={setSeverity}
                         otherStyles="my-3"
                     />
-
                     <FormField
                         title="Note"
                         value={note}
@@ -100,14 +93,14 @@ const symptomForm = () => {
                     />
 
                     <CustomButton
-                        title="Log"
-                        handlePress={log}
+                        title="Update Symptom"
+                        handlePress={handleUpdate}
                         isLoading={isSubmitting}
                     />
                 </View>
             </ScrollView>
         </SafeAreaView>
-    )
-}
+    );
+};
 
-export default symptomForm
+export default UpdateSymptom;

@@ -1,5 +1,5 @@
 import { Platform, View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { icons } from "../constants";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from '@react-native-picker/picker'; // Import Picker
@@ -9,7 +9,14 @@ const FormField = ({ title, value, placeholder, handleChangeText, otherStyles, .
     const [showPicker, setShowPicker] = useState(false); // Single state to manage picker visibility
     const [date, setDate] = useState(new Date()); // Initialize with current date
     const [isTimePicker, setIsTimePicker] = useState(false); // State to differentiate between date and time picker
-    const [selectedSeverity, setSelectedSeverity] = useState(""); // State for selected severity
+    const [selectedSeverity, setSelectedSeverity] = useState(value || ""); // Initialize with value prop
+
+    useEffect(() => {
+        // Sync with the value prop in case it's updated externally
+        if (title === "Severity" && value) {
+            setSelectedSeverity(value);
+        }
+    }, [value]);
 
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate || date;
@@ -40,46 +47,25 @@ const FormField = ({ title, value, placeholder, handleChangeText, otherStyles, .
 
             {title === "Severity" ? (
                 <View className="w-full h-16 px-4 bg-slate-100 rounded-xl border-2 border-slate-200 focus:border-primary">
-                    {Platform.OS === 'ios' ? (
-                        // Wrap Picker for iOS inside a modal or fix positioning issues
-                        <Picker
-                            selectedValue={selectedSeverity}
-                            onValueChange={(itemValue) => {
-                                setSelectedSeverity(itemValue);
-                                handleChangeText(itemValue);
-                            }}
-                            style={{
-                                flex: 2,
-                                color: "black",
-                                height: 150, // Adjust height for iOS
-                            }}
-                        >
-                            <Picker.Item label="Select Severity" value="" />
-                            <Picker.Item label="Mild" value="Mild" />
-                            <Picker.Item label="Moderate" value="Moderate" />
-                            <Picker.Item label="Severe" value="Severe" />
-                        </Picker>
-                    ) : (
-                        <Picker
-                            selectedValue={selectedSeverity}
-                            onValueChange={(itemValue) => {
-                                setSelectedSeverity(itemValue);
-                                handleChangeText(itemValue);
-                            }}
-                            style={{ flex: 2, color: "black" }}
-                        >
-                            <Picker.Item label="Select Severity" value="" />
-                            <Picker.Item label="Mild" value="Mild" />
-                            <Picker.Item label="Moderate" value="Moderate" />
-                            <Picker.Item label="Severe" value="Severe" />
-                        </Picker>
-                    )}
+                    <Picker
+                        selectedValue={selectedSeverity}
+                        onValueChange={(itemValue) => {
+                            setSelectedSeverity(itemValue); // Update internal state
+                            handleChangeText(itemValue); // Pass updated value to parent
+                        }}
+                        style={{ flex: 2, color: "black" }}
+                    >
+                        <Picker.Item label="Select Severity" value="" />
+                        <Picker.Item label="Mild" value="Mild" />
+                        <Picker.Item label="Moderate" value="Moderate" />
+                        <Picker.Item label="Severe" value="Severe" />
+                    </Picker>
                 </View>
             ) : title === "Note" ? (
                 // Note field (multi-line TextInput)
                 <View className="w-full px-4 bg-slate-100 rounded-xl border-2 border-slate-200 focus:border-primary h-">
                     <TextInput
-                        className="text-black font-psemibold text-base"
+                        className="text-black font-psemibold text-base mt-3"
                         value={value}
                         placeholder={placeholder}
                         placeholderTextColor="#7B7B8B"
@@ -127,29 +113,27 @@ const FormField = ({ title, value, placeholder, handleChangeText, otherStyles, .
 
             {showPicker && (
                 <DateTimePicker
-                value={date}
-                mode={isTimePicker ? "time" : "date"} // Show time or date picker based on state
-                is24Hour={true}
-                display={Platform.OS === "ios" ? "spinner" : "default"} // Handle iOS/Android display
-                onChange={(event, selectedDate) => { 
-                    if (selectedDate) {
-                        setShowPicker(false);  // Close the picker after selection
-                        setDate(selectedDate);  // Update the date state
-                        
-                        // Call handleChangeText with the formatted date or time
-                        if (isTimePicker) {
-                            handleChangeText(selectedDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+                    value={date}
+                    mode={isTimePicker ? "time" : "date"} // Show time or date picker based on state
+                    is24Hour={true}
+                    display={Platform.OS === "ios" ? "spinner" : "default"} // Handle iOS/Android display
+                    onChange={(event, selectedDate) => { 
+                        if (selectedDate) {
+                            setShowPicker(false);  // Close the picker after selection
+                            setDate(selectedDate);  // Update the date state
+                            
+                            // Call handleChangeText with the formatted date or time
+                            if (isTimePicker) {
+                                handleChangeText(selectedDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+                            } else {
+                                handleChangeText(selectedDate.toLocaleDateString());  // Format date
+                            }
                         } else {
-                            handleChangeText(selectedDate.toLocaleDateString());  // Format date
+                            setShowPicker(false);  // Close the picker without updating
                         }
-                    } else {
-                        setShowPicker(false);  // Close the picker without updating
-                    }
-                }}
-            />
-            
+                    }}
+                />
             )}
-
         </View>
     );
 };

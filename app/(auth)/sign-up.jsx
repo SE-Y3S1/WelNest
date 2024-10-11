@@ -1,7 +1,8 @@
 
-import { View, Text, ScrollView, Alert } from 'react-native'
+import { View, Text, ScrollView, Alert, Dimensions, Image } from 'react-native'
 import { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { icons } from '../../constants'
 import FormField from '../../components/FormField'
 import CustomButton from '../../components/CustomButton'
 import { Link, router } from "expo-router";
@@ -11,6 +12,7 @@ import {
   getAuth,
   updateProfile,
 } from 'firebase/auth';
+
 
 const SignUp = () => {
   const [isSubmitting, setSubmitting] = useState(false);
@@ -53,10 +55,17 @@ const SignUp = () => {
   return (
     <SafeAreaView className="h=full">
       <ScrollView>
-        <View className="w-full min-h-[95vh] justify-center px-4 my-6">
-          <Text className="text-2xl text-black font-psemibold mt-10">
-            Sign Up to Wellnest
-          </Text>
+      <View
+          className="w-full flex justify-center h-full px-4 my-6"
+          style={{
+            minHeight: Dimensions.get("window").height - 100,
+          }}
+        >
+      <Image
+            source={icons.welnest}
+            resizeMode="contain"
+             className="w-60 h-28 mx-auto"
+          />
           <FormField
             title="Username"
             value={form.username}
