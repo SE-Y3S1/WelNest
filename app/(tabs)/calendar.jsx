@@ -139,7 +139,7 @@ const CalendarPage = () => {
                   <Text className="text-xl font-pbold">{item.symptom}</Text>
                   <View className="w-[90.02px] h-6 absolute" style={{ right: 30, top: 20 }}>
                     <View style={{ backgroundColor: getSeverityColor(item.severity) }} className="w-[90.02px] h-6 rounded-[10px]"></View>
-                    <Text className="w-[53.58px] h-[17px] absolute text-center text-white text-[13px] font-bold" style={{ left: 19.29, top: 1 }}>
+                    <Text className="w-[53.58px] h-[17px] absolute text-center text-white text-[13px] font-bold" style={{ left: 19.29, top: 3 }}>
                       {item.severity}
                     </Text>
                   </View>
