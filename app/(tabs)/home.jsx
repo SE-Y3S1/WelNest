@@ -58,7 +58,7 @@ const Home = () => {
       shadowRadius: 4,
       elevation: 8,
     }}
-    onPress={() => navigation.navigate('symptomLogging')}
+    onPress={() => navigation.navigate('symptomsList')}
   >
     <Image 
       source={icons.symptomLogging} 
