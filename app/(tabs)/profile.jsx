@@ -29,7 +29,7 @@ const Profile = () => {
         {/* Edit Profile */}
         <TouchableOpacity
           className="flex-row items-center bg-[#FFE3CB] py-4 px-6 mb-4 rounded-xl "
-          onPress={() => navigation.navigate('EditProfile')} // Replace with actual screen
+           // Replace with actual screen
         >
           <Image
             source={require('../../assets/user.png')} // Replace with your icon path
@@ -53,7 +53,7 @@ const Profile = () => {
         {/* Settings */}
         <TouchableOpacity
           className="flex-row items-center bg-[#FFE3CB] py-4 px-6 mb-4 rounded-xl"
-          onPress={() => navigation.navigate('Settings')} // Replace with actual screen
+          // Replace with actual screen
         >
           <Image
             source={require('../../assets/setting.png')} // Replace with your icon path
@@ -65,7 +65,7 @@ const Profile = () => {
         {/* Terms & Privacy Policy */}
         <TouchableOpacity
           className="flex-row items-center bg-[#FFE3CB] py-4 px-6 mb-4 rounded-xl"
-          onPress={() => navigation.navigate('TermsPrivacy')} // Replace with actual screen
+          // Replace with actual screen
         >
           <Image
             source={require('../../assets/term.png')} // Replace with your icon path
@@ -77,7 +77,7 @@ const Profile = () => {
         {/* Log Out */}
         <TouchableOpacity
           className="flex-row items-center bg-[#FFE3CB] py-4 px-6 mb-4 rounded-xl"
-          onPress={() => navigation.navigate('LogOut')} // Replace with actual log out functionality
+           // Replace with actual log out functionality
         >
           <Image
             source={require('../../assets/icons/logout.png')} // Replace with your icon path
