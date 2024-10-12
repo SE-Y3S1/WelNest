@@ -11,34 +11,7 @@ const NutritionTips = () => {
   const [userTips, setUserTips] = useState([]);
   const [nutritionTips, setNutritionTips] = useState([]);
 
-  // Predefined nutrition tips
-  const predefinedNutritionTips = [
-    {
-      title: 'Eat a Balanced Diet',
-      description:
-        'Ensure each meal includes a mix of proteins, carbohydrates, and healthy fats. A balanced diet provides essential nutrients to keep your body energized and healthy throughout the day.',
-    },
-    {
-      title: 'Stay Hydrated',
-      description:
-        'Drink at least 8 glasses of water daily to stay hydrated. Proper hydration supports digestion, skin health, and overall bodily functions, helping you feel more alert and focused.',
-    },
-    {
-      title: 'Limit Processed Foods',
-      description:
-        'Try to minimize processed foods that are high in sugar, salt, and unhealthy fats. Opt for whole, unprocessed foods like fresh vegetables, fruits, and lean meats to maintain optimal health.',
-    },
-    {
-      title: 'Practice Portion Control',
-      description:
-        'Pay attention to portion sizes to avoid overeating. Using smaller plates and measuring servings can help you manage your intake and maintain a healthy weight without feeling deprived.',
-    },
-    {
-      title: 'Incorporate Fiber Meals',
-      description:
-        'Add more fiber-rich foods like fruits, vegetables, and whole grains to your diet. Fiber aids digestion, supports heart health, and helps keep you fuller for longer, reducing unhealthy snacking.',
-    },
-  ];
+ 
 
   // Fetch nutrition tips from Firestore on mount
   useEffect(() => {
@@ -65,7 +38,7 @@ const NutritionTips = () => {
 
   // Combine all nutrition tips for display
   const combinedNutritionTips = [
-    ...predefinedNutritionTips,
+
     ...userTips,
     ...nutritionTips,
   ];
@@ -76,7 +49,7 @@ const NutritionTips = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={80}
     >
-      <View className="bg-[#FFDFA8] rounded-b-[50px] px-4 py-5 h-[25%]">
+      <View className="bg-[#FFDFA8] rounded-b-[50px] px-4 py-5 h-[24%]">
         <View className="flex-row items-center justify-between">
           <TouchableOpacity onPress={() => navigation.navigate('recipe_detail')}>
             <Image source={require('../../assets/back-icon.png')} className="w-8 h-8 mt-10" />
