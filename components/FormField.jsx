@@ -61,6 +61,30 @@ const FormField = ({ title, value, placeholder, handleChangeText, otherStyles, .
                         <Picker.Item label="Severe" value="Severe" />
                     </Picker>
                 </View>
+
+                    ):title === "week" ? (
+                <View className="w-full h-16 px-4 bg-slate-100 rounded-xl border-2 border-slate-200 focus:border-primary">
+                    <Picker
+                        selectedValue={selectedSeverity}
+                        onValueChange={(itemValue) => {
+                            setSelectedSeverity(itemValue); // Update internal state
+                            handleChangeText(itemValue); // Pass updated value to parent
+                        }}
+                        style={{ flex: 2, color: "black" }}
+                    >
+                        <Picker.Item label="Select Day" value="" />
+                        <Picker.Item label="Monday" value="Monday" />
+                        <Picker.Item label="Tuesday" value="Tuesday" />
+                        <Picker.Item label="Wednesday" value="Wednesday" />
+                        <Picker.Item label="Thursday" value="Thursday" />
+                        <Picker.Item label="Friday" value="Friday" />
+                        <Picker.Item label="Saturday" value="Saturday" />
+                        <Picker.Item label="Sunday" value="Sunday" />
+                    </Picker>
+                </View>
+
+
+
             ) : title === "Note" ? (
                 // Note field (multi-line TextInput)
                 <View className="w-full px-4 bg-slate-100 rounded-xl border-2 border-slate-200 focus:border-primary h-">
@@ -76,6 +100,40 @@ const FormField = ({ title, value, placeholder, handleChangeText, otherStyles, .
                         {...props}
                     />
                 </View>
+
+            ) : title === "Description" ? (
+                // Note field (multi-line TextInput)
+                <View className="w-full px-4 bg-slate-100 rounded-xl border-2 border-slate-200 focus:border-primary h-[%]">
+                    <TextInput
+                        className="text-black font-psemibold text-base mt-3"
+                        value={value}
+                        placeholder={placeholder}
+                        placeholderTextColor="#7B7B8B"
+                        onChangeText={handleChangeText}
+                        multiline={true} // Enable multi-line for note
+                        numberOfLines={4} // Specify how many lines to show by default
+                        textAlignVertical="top" // Align text to the top
+                        {...props}
+                    />
+                </View>
+
+
+            ): title === "Title" ? (
+                // Note field (multi-line TextInput)
+                <View className="w-full px-4 bg-slate-100 rounded-xl border-2 border-slate-200 focus:border-primary h-[%]">
+                    <TextInput
+                        className="text-black font-psemibold text-base mt-3"
+                        value={value}
+                        placeholder={placeholder}
+                        placeholderTextColor="#7B7B8B"
+                        onChangeText={handleChangeText}
+                        multiline={true} // Enable multi-line for note
+                        numberOfLines={4} // Specify how many lines to show by default
+                        textAlignVertical="top" // Align text to the top
+                        {...props}
+                    />
+                </View>
+
             ) : (
                 // Existing TextInput with Date/Time and Password handling
                 <View className="w-full h-16 px-4 bg-slate-100 rounded-xl border-2 border-slate-200 focus:border-primary flex flex-row items-center">

@@ -30,7 +30,7 @@ const Home = () => {
           <View className="space-y-4">
             {/* Meal Planning */}
             <TouchableOpacity
-    className="bg-gray-200 rounded-lg p-4 flex-row items-center"
+    className="bg-[#FFE3CB]  rounded-lg p-4 flex-row items-center"
     style={{
       shadowColor: '#000',    // Shadow color
       shadowOffset: { width: 0, height: 4 },  // Shadow offset
@@ -38,7 +38,7 @@ const Home = () => {
       shadowRadius: 4,        // Shadow radius
       elevation: 8,           // Shadow for Android
     }}
-    onPress={() => navigation.navigate('mealPlanning')}
+    onPress={() => navigation.navigate('meal_planner')}
   >
     <Image 
       source={icons.mealPlanning} 
@@ -55,7 +55,7 @@ const Home = () => {
 
             {/* Symptom Logging */}
   <TouchableOpacity
-    className="bg-gray-200 rounded-lg p-4 flex-row items-center"
+    className="bg-[#FFE3CB] rounded-lg p-4 flex-row items-center"
     style={{
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 4 },
@@ -80,7 +80,7 @@ const Home = () => {
 
   {/* Sleep Tracking */}
   <TouchableOpacity
-    className="bg-gray-200 rounded-lg p-4 flex-row items-center"
+    className="bg-[#FFE3CB] rounded-lg p-4 flex-row items-center"
     style={{
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 4 },
@@ -105,7 +105,7 @@ const Home = () => {
 
   {/* Health Goal Setting */}
   <TouchableOpacity
-    className="bg-gray-200 rounded-lg p-4 flex-row items-center"
+    className="bg-[#FFE3CB] rounded-lg p-4 flex-row items-center"
     style={{
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 4 },
@@ -113,7 +113,7 @@ const Home = () => {
       shadowRadius: 4,
       elevation: 8,
     }}
-    onPress={() => navigation.navigate('healthGoalSetting')}
+    onPress={() => navigation.navigate('nutrition_add')}
   >
     <Image 
       source={icons.healthGoalSetting} 

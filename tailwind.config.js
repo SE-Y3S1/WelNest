@@ -5,6 +5,10 @@ module.exports = {
     extend: {
       colors:{
         primary: '#FEA405',
+        customPink: '#FBEFDA',
+        customLightGreen: '#E3FFF8', 
+        customDarkBlue: '#3E5481',
+        lightteal: '#E3FFF8', 
       }
     },
     fontFamily: {
