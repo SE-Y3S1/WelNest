@@ -76,11 +76,11 @@ const MealPlanner = () => {
 
                     {/* Day of the Week */}
                     <Text className="text-lg font-bold mb-2">Day of the Week:</Text>
-                    <View className={`h-12 border ${focusedField === 'day' ? 'border-[#F59D00]' : 'border-gray-300'} rounded mb-4`}>
+                    <View className={`h-15 border ${focusedField === 'day' ? 'border-[#F59D00]' : 'border-gray-300'} rounded mb-4`}>
                         <Picker
                             selectedValue={selectedDay}
                             onValueChange={handleDayChange}
-                            className="h-12 border-none rounded"
+                            className="h-15 border-none rounded"
                             onFocus={() => setFocusedField('day')}
                             onBlur={() => setFocusedField('')}
                         >
@@ -97,7 +97,7 @@ const MealPlanner = () => {
 
                     {/* Meal Type */}
                     <Text className="text-lg font-bold mb-2">Meal Type:</Text>
-                    <View className={`h-12 border ${focusedField === 'mealType' ? 'border-[#F59D00]' : 'border-gray-300'} rounded mb-4`}>
+                    <View className={`h-16 border ${focusedField === 'mealType' ? 'border-[#F59D00]' : 'border-gray-300'} rounded mb-4`}>
                         <Picker
                             selectedValue={selectedMealType}
                             onValueChange={handleMealTypeChange}
@@ -119,7 +119,7 @@ const MealPlanner = () => {
                         onChangeText={setMealItem1}
                         onFocus={() => setFocusedField('mealItem1')}
                         onBlur={() => setFocusedField('')}
-                        className={`h-10 border ${focusedField === 'mealItem1' ? 'border-[#F59D00]' : 'border-gray-300'} rounded mb-4`}
+                        className={`h-16 border ${focusedField === 'mealItem1' ? 'border-[#F59D00]' : 'border-gray-300'} rounded mb-4`}
                     />
 
                     {/* Meal Item 2 */}
@@ -129,7 +129,7 @@ const MealPlanner = () => {
                         onChangeText={setMealItem2}
                         onFocus={() => setFocusedField('mealItem2')}
                         onBlur={() => setFocusedField('')}
-                        className={`h-10 border ${focusedField === 'mealItem2' ? 'border-[#F59D00]' : 'border-gray-300'} rounded mb-4`}
+                        className={`h-16 border ${focusedField === 'mealItem2' ? 'border-[#F59D00]' : 'border-gray-300'} rounded mb-4`}
                     />
 
                     {/* Meal Item 3 */}
@@ -139,7 +139,7 @@ const MealPlanner = () => {
                         onChangeText={setMealItem3}
                         onFocus={() => setFocusedField('mealItem3')}
                         onBlur={() => setFocusedField('')}
-                        className={`h-10 border ${focusedField === 'mealItem3' ? 'border-[#F59D00]' : 'border-gray-300'} rounded mb-4`}
+                        className={`h-16 border ${focusedField === 'mealItem3' ? 'border-[#F59D00]' : 'border-gray-300'} rounded mb-4`}
                     />
 
                     {/* Quantity */}
@@ -149,7 +149,7 @@ const MealPlanner = () => {
                         onChangeText={setQuantity}
                         onFocus={() => setFocusedField('quantity')}
                         onBlur={() => setFocusedField('')}
-                        className={`h-10 border ${focusedField === 'quantity' ? 'border-[#F59D00]' : 'border-gray-300'} rounded mb-4`}
+                        className={`h-16 border ${focusedField === 'quantity' ? 'border-[#F59D00]' : 'border-gray-300'} rounded mb-4`}
                         keyboardType="numeric"
                     />
 
