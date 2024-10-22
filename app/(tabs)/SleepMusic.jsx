@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, ImageBackground } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, ImageBackground, Image } from 'react-native';
 
 const SleepMusic = () => {
+  const navigation = useNavigation();
   const [searchText, setSearchText] = useState('');
 
   const musicCategories = [
-    { id: '1', title: 'Rain Sounds', image: require('../assets/images/rain.png') },
-    { id: '2', title: 'Ocean & Waves', image: require('../assets/images/ocean.png') },
-    { id: '3', title: 'Rivers & Waterfalls', image: require('../assets/images/waterfall.png') },
-    { id: '4', title: 'Deep Forests', image: require('../assets/images/forest.png') },
-    { id: '5', title: 'Night Sounds', image: require('../assets/images/night.png') },
-    { id: '6', title: 'Early Mornings', image: require('../assets/images/sunrise.png') },
+    { id: '1', title: 'Rain Sounds', image: require('../../assets/images/rain.png') },
+    { id: '2', title: 'Ocean & Waves', image: require('../../assets/images/ocean.png') },
+    { id: '3', title: 'Rivers & Waterfalls', image: require('../../assets/images/waterfall.png') },
+    { id: '4', title: 'Deep Forests', image: require('../../assets/images/forest.png') },
+    { id: '5', title: 'Night Sounds', image: require('../../assets/images/night.png') },
+    { id: '6', title: 'Early Mornings', image: require('../../assets/images/sunrise.png') },
   ];
 
   const renderTile = ({ item }) => (
@@ -25,6 +27,9 @@ const SleepMusic = () => {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.navigate('sleepTrack')}>
+                <Image source={require('../../assets/back-icon.png')} className="w-8 h-8 mt-12" />
+              </TouchableOpacity>
       <Text style={styles.header}>Sleep Music</Text>
 
       {/* Search Bar */}
@@ -67,13 +72,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: '#ffff',
+    marginTop: 50,
   },
   header: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: '#333',
+    textAlign: 'center',
   },
   searchContainer: {
     marginBottom: 20,

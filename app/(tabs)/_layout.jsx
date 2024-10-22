@@ -94,7 +94,7 @@ const TabsLayout = () => {
             />
 
             {/* Hidden Tabs */}
-            {['sleepTrack', 'symptomForm', 'symptomsList', 'updateSymptom', 'meal_planner', 'recipe', 'nutrition', 'nutrition_add', 'added', 'edititem'].map(screen => (
+            {['sleepTrack', 'symptomForm', 'symptomsList', 'updateSymptom', 'meal_planner', 'recipe', 'nutrition', 'nutrition_add', 'added', 'edititem','setBedtime','SetAlarm','SleepFacts','SleepMusic','UpdateAlarm','UpdateBedtime','schedules', 'alarms'].map(screen => (
                 <Tabs.Screen
                     key={screen}
                     name={screen}

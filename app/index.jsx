@@ -19,6 +19,7 @@ export default function App() {
             minHeight: Dimensions.get("window").height - 100,
           }}
         >
+          
           <Image
             source={icons.welnest}
             resizeMode="contain"

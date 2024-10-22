@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Alert, Switch } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { getBedtimes, deleteBedtime } from './firebase/sTrackService';  
+import { getBedtimes, deleteBedtime } from '../firebase/sTrackService';  
 import { useNavigation } from '@react-navigation/native';  // To navigate to other screens
 
 const Schedules = () => {

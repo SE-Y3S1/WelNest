@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { View, Text, ScrollView, Switch, TouchableOpacity, Alert } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from '@react-native-picker/picker';
-import CustomButton from '../components/CustomButton';
-import FormField from '../components/FormField';
-import { addAlarm } from './firebase/alarmService'; 
+import CustomButton from '../../components/CustomButton';
+import FormField from '../../components/FormField';
+import { addAlarm } from '../firebase/alarmService'; 
 import { useNavigation } from '@react-navigation/native';
 
 const SetAlarm = () => {
@@ -73,7 +73,7 @@ const SetAlarm = () => {
         fontSize: 24, 
         color: 'black', 
         fontFamily: 'Poppins-SemiBold', 
-        marginTop: -10, 
+        marginTop: 50, 
         textAlign: 'center',
       }}>
         Set Alarm
